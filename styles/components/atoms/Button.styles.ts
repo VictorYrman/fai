@@ -16,8 +16,8 @@ export const ButtonStyles = StyleSheet.create({
         ...GlobalStyles.rowCenter,
         gap: Spacing.small,
         borderRadius: BorderRadius.small,
-        paddingBlock: Spacing.small,
-        paddingInline: Spacing.medium
+        paddingVertical: Spacing.small,
+        paddingHorizontal: Spacing.medium
     },
     gradient: {
         ...Shadows.primary

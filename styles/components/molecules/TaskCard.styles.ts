@@ -14,8 +14,8 @@ export const TaskCardStyles = StyleSheet.create({
         gap: Spacing.medium,
         backgroundColor: Colors.lightTranslucent,
         borderRadius: BorderRadius.small,
-        paddingBlock: Spacing.small,
-        paddingInline: Spacing.medium,
+        paddingVertical: Spacing.small,
+        paddingHorizontal: Spacing.medium,
     },
     taskCardIconWrapper: {
         backgroundColor: Colors.lightTranslucent,

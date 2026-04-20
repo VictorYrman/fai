@@ -2,11 +2,11 @@
 import { StyleSheet } from "react-native";
 
 // Constants
-import { Colors, Spacing } from "@/constants/theme";
+import { BorderRadius, Colors, Shadows, Spacing } from "@/constants/theme";
 
 export const GlobalStyles = StyleSheet.create({
     container: {
-        margin: Spacing.medium
+        padding: Spacing.medium
     },
     columnCenter: {
         alignItems: "center",
@@ -17,7 +17,7 @@ export const GlobalStyles = StyleSheet.create({
         alignItems: "center"
     },
     rowAlignCenterBetween: {
-        flexDirection: "column",
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
     },
@@ -25,6 +25,47 @@ export const GlobalStyles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center"
+    },
+    interactiveElement: {
+        backgroundColor: Colors.lightTranslucent,
+        borderRadius: BorderRadius.small
+    },
+    interactiveCard: {
+        backgroundColor: Colors.lightTranslucent,
+        borderRadius: BorderRadius.small,
+
+        borderWidth: 2,
+        borderColor: Colors.light,
+        ...Shadows.light
+    },
+    interactiveCardSelected: {
+        borderColor: Colors.primary,
+        ...Shadows.primary
+    },
+
+    absoluteToRight: {
+        position: "absolute",
+        top: Spacing.small,
+        right: Spacing.medium
+    },
+    absoluteVerticalCenter: {
+        position: "absolute",
+        top: "50%",
+        transform: [{ translateY: "-50%" }]
+    },
+
+    sectionGap: {
+        gap: Spacing.long
+    },
+    contentGap: {
+        gap: Spacing.medium
+    },
+    elementsGap: {
+        gap: Spacing.small
+    },
+
+    textPrimary: {
+        color: Colors.primary
     },
     textDark: {
         color: Colors.dark

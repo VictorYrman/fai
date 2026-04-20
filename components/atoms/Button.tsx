@@ -24,7 +24,7 @@ type ButtonProps = PressableProps & {
   onPress: () => void;
 };
 
-// Coordinates
+// Gradient Coordinates
 const GradientCoordinates = {
   start: { x: 0, y: 0.5 },
   end: { x: 1, y: 0.5 }
