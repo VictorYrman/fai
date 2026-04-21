@@ -14,7 +14,7 @@ export const ButtonStyles = StyleSheet.create({
     },
     buttonContainer: {
         ...GlobalStyles.rowCenter,
-        gap: Spacing.small,
+        ...GlobalStyles.elementsGap,
         borderRadius: BorderRadius.small,
         paddingVertical: Spacing.small,
         paddingHorizontal: Spacing.medium

@@ -37,13 +37,15 @@ export const Typography = {
 export const Spacing = {
   small: 8,
   medium: 16,
+  large: 24,
   long: 32
 };
 
 export const BorderRadius = {
   small: 8,
   medium: 16,
-  long: 32
+  long: 32,
+  full: "100%"
 };
 
 export const IconSize = {

@@ -11,9 +11,9 @@ export const ImageOptionStyles = StyleSheet.create({
     imageOption: {
         ...GlobalStyles.interactiveCard,
         ...GlobalStyles.columnCenter,
+        ...GlobalStyles.contentGap,
         flex: 1,
         position: "relative",
-        gap: Spacing.medium,
         paddingVertical: Spacing.small,
         paddingHorizontal: Spacing.medium
     },

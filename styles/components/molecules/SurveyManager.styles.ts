@@ -2,7 +2,7 @@
 import { StyleSheet } from "react-native";
 
 // Constants
-import { BorderRadius, Colors, Spacing } from "@/constants/theme";
+import { BorderRadius, Spacing } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -10,13 +10,12 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 export const SurveyManagerStyles = StyleSheet.create({
     surveyManager: {
         ...GlobalStyles.rowAlignCenterBetween,
-        gap: Spacing.medium
+        ...GlobalStyles.contentGap
     },
     progressBar: {
+        ...GlobalStyles.interactiveElement,
         flex: 1,
-        height: Spacing.medium,
-        backgroundColor: Colors.lightTranslucent,
-        borderRadius: BorderRadius.small
+        height: Spacing.medium
     },
     progressBarFilled: {
         height: "100%",

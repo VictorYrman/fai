@@ -1,21 +1,18 @@
 // External Dependencies
 import { StyleSheet } from "react-native";
 
-// Constants
-import { Spacing } from "@/constants/theme";
-
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export const AccordionStyles = StyleSheet.create({
     accordion: {
-        gap: Spacing.medium
+        ...GlobalStyles.contentGap
     },
     accordionHeader: {
         ...GlobalStyles.rowAlignCenter,
-        gap: Spacing.small
+        ...GlobalStyles.elementsGap
     },
     accordionContent: {
-        gap: Spacing.medium
+        ...GlobalStyles.contentGap
     }
 });

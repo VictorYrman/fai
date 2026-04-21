@@ -11,9 +11,9 @@ export const CardOptionStyles = StyleSheet.create({
     cardOption: {
         ...GlobalStyles.interactiveCard,
         ...GlobalStyles.rowAlignCenter,
+        ...GlobalStyles.contentGap,
         position: "relative",
         width: "100%",
-        gap: Spacing.medium,
         paddingVertical: Spacing.small,
         paddingHorizontal: Spacing.medium
     },
@@ -25,13 +25,12 @@ export const CardOptionStyles = StyleSheet.create({
         height: 80
     },
     cardOptionContent: {
-        flex: 1,
-        gap: Spacing.small
+        ...GlobalStyles.elementsGap,
+        flex: 1
     },
     statusContainer: {
         ...GlobalStyles.absoluteToRight,
         ...GlobalStyles.rowCenter,
-        gap: Spacing.small
-        
+        ...GlobalStyles.elementsGap
     }
 });

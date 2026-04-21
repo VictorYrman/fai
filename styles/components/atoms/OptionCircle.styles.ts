@@ -2,7 +2,7 @@
 import { StyleSheet } from "react-native";
 
 // Constants
-import { Colors, Spacing } from "@/constants/theme";
+import { BorderRadius, Colors, Spacing } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -10,11 +10,11 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 export const OptionCircleStyles = StyleSheet.create({
     optionCircle: {
         ...GlobalStyles.columnCenter,
-        width: 24,
-        height: 24,
+        width: Spacing.large,
+        height: Spacing.large,
         borderWidth: 2,
         borderColor: Colors.light,
-        borderRadius: "100%"
+        borderRadius: BorderRadius.full
     },
     emptyCircleSelected: {
         borderColor: Colors.primary
@@ -23,6 +23,6 @@ export const OptionCircleStyles = StyleSheet.create({
         width: Spacing.medium,
         height: Spacing.medium,
         backgroundColor: Colors.primary,
-        borderRadius: "100%"
+        borderRadius: BorderRadius.full
     }
 });
