@@ -11,12 +11,18 @@ export const Colors = {
   light: "#FFFFFF",
   lightTranslucent: "#ffffff2C",
   dark: "#0B0E23",
-  purple: "#660FE9"
+  purple: "#660FE9",
+
+  bmiInsufficient: "#3498DB",
+  bmiNormal: "#2ECC71",
+  bmiRedundant: "#CC8D2E",
+  bmiFatness: "#CC332E",
+  bmiExtremeDegree: "#86241B"
 };
 
 export const Typography = {
   title: {
-    fontSize: 30
+    fontSize: 28
   },
   subtitle: {
     fontSize: 24

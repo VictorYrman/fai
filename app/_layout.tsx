@@ -9,9 +9,10 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
       </Stack.Screen>
-      <Stack.Screen name="signin" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
-      </Stack.Screen>
       <Stack.Screen name="survey" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
+      </Stack.Screen>
+      <Stack.Screen name="demo" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}></Stack.Screen>
+      <Stack.Screen name="signin" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
       </Stack.Screen>
       <Stack.Screen name="(tabs)" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
       </Stack.Screen>

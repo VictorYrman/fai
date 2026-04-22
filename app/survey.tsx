@@ -67,17 +67,18 @@ export default function Survey() {
                     <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your goal?</Typography>
                 </View>
 
-                <View key={6} style={{
-                    gap: Spacing.medium
-                }}>
+                <View key={6} style={[GlobalStyles.contentGap, { justifyContent: "space-between" }]}>
                     <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your level?</Typography>
-                    <Button type="gradient" onPress={() => router.navigate("/(tabs)")}>
-                        <Typography type="key" style={GlobalStyles.textDark}>CREATE A TRAINING PROGRAM!</Typography>
-                    </Button>
                 </View>
             </PagerView>
 
-            <SurveyManager currentPage={currentPage} totalPages={totalPages} onPrevious={onPrevious} onNext={onNext} />
+            {currentPage !== totalPages - 1 ? (
+                <SurveyManager currentPage={currentPage} totalPages={totalPages} onPrevious={onPrevious} onNext={onNext} />
+            ) : (
+                <Button type="gradient" onPress={() => router.navigate("/(tabs)")}>
+                    <Typography type="key" style={GlobalStyles.textDark}>CREATE A TRAINING PROGRAM!</Typography>
+                </Button>
+            )}
         </GradientBackground>
     );
 };
