@@ -1,7 +1,9 @@
+// Atoms Components
+import Icon from "../atoms/Icon";
+
 // External Dependencies
 import { Pressable, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { FontAwesome } from "@expo/vector-icons";
 
 // Constants
 import { Colors, IconSize } from "@/constants/theme";
@@ -32,7 +34,7 @@ const SurveyManager = ({ currentPage, totalPages, onPrevious, onNext }: SurveyMa
     return (
         <View style={SurveyManagerStyles.surveyManager}>
             <Pressable onPress={onPrevious} disabled={currentPage === 0}>
-                <FontAwesome name="chevron-left" size={IconSize.small} color={currentPage === 0 ? Colors.lightTranslucent : Colors.primary} />
+                <Icon icon="arrow-left" width={IconSize.medium} height={IconSize.medium} color={currentPage === 0 ? Colors.lightTranslucent : Colors.primary} />
             </Pressable>
 
             <View style={SurveyManagerStyles.progressBar}>
@@ -45,7 +47,7 @@ const SurveyManager = ({ currentPage, totalPages, onPrevious, onNext }: SurveyMa
             </View>
 
             <Pressable onPress={onNext} disabled={currentPage === totalPages - 1}>
-                <FontAwesome name="chevron-right" size={IconSize.small} color={currentPage === totalPages - 1 ? Colors.lightTranslucent : Colors.primary} />
+                <Icon icon="arrow-right" width={IconSize.medium} height={IconSize.medium} color={currentPage === totalPages - 1 ? Colors.lightTranslucent : Colors.primary} />
             </Pressable>
         </View>
     );

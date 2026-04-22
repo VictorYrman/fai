@@ -23,7 +23,7 @@ export default function Index() {
 
   return (
     <GradientBackground
-      style={[WelcomeStyles.welcome, { paddingTop: PaddingTop }]}
+      style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}
     >
       <View style={WelcomeStyles.welcomeContent}>
         <Typography type="title">WELCOME TO FAI!</Typography>

@@ -1,6 +1,8 @@
+// Atoms Components
+import Icon from "@/components/atoms/Icon";
+
 // External Dependencies
 import { Tabs } from "expo-router";
-import { FontAwesome, Ionicons } from "@expo/vector-icons"
 
 // Constants
 import { Colors, IconSize } from "@/constants/theme";
@@ -19,19 +21,19 @@ export default function TabLayout() {
         >
             <Tabs.Screen name="index" options={{
                 title: "Home",
-                tabBarIcon: ({color}) => <FontAwesome name="home" size={IconSize.medium} color={color} />
+                tabBarIcon: ({color}) => <Icon icon="home" width={IconSize.medium} height={IconSize.medium} color={color} />
             }} />
             <Tabs.Screen name="tasks" options={{
                 title: "Tasks",
-                tabBarIcon: ({color}) => <FontAwesome name="tasks" size={IconSize.medium} color={color} />
+                tabBarIcon: ({color}) => <Icon icon="tasks" width={IconSize.medium} height={IconSize.medium} color={color} />
             }} />
             <Tabs.Screen name="analytics" options={{
                 title: "Analytics",
-                tabBarIcon: ({color}) => <Ionicons name="analytics" size={IconSize.medium} color={color} />
+                tabBarIcon: ({color}) => <Icon icon="analytics" width={IconSize.medium} height={IconSize.medium} color={color} />
             }} />
             <Tabs.Screen name="profile" options={{
                 title: "Profile",
-                tabBarIcon: ({color}) => <Ionicons name="person" size={IconSize.medium} color={color} />
+                tabBarIcon: ({color}) => <Icon icon="profile" width={IconSize.medium} height={IconSize.medium} color={color} />
             }} />
         </Tabs>
     );

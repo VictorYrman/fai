@@ -9,6 +9,8 @@ import GuestIcon from "@/assets/icons/guest.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import ArrowDownIcon from "@/assets/icons/arrow-down.svg"
 import ArrowUpIcon from "@/assets/icons/arrow-up.svg";
+import ArrowLeftIcon from "@/assets/icons/arrow-left.svg";
+import ArrowRightIcon from "@/assets/icons/arrow-right.svg";
 import WarmupIcon from "@/assets/icons/warmup.svg";
 import StrengthIcon from "@/assets/icons/strength.svg";
 import CardioIcon from "@/assets/icons/cardio.svg";
@@ -29,6 +31,8 @@ const IconMap = {
     search: SearchIcon,
     "arrow-down": ArrowDownIcon,
     "arrow-up": ArrowUpIcon,
+    "arrow-left": ArrowLeftIcon,
+    "arrow-right": ArrowRightIcon,
     warmup: WarmupIcon,
     strength: StrengthIcon,
     cardio: CardioIcon,

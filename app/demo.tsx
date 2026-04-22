@@ -13,7 +13,6 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { Spacing } from "@/constants/theme";
 
 // Styles
-import { DemoStyles } from "@/styles/screens/Demo.styles";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 const Days = [
@@ -33,7 +32,7 @@ export default function Demo() {
     const PaddingTop = HeaderHeight + Spacing.long;
 
     return (
-        <GradientBackground style={[DemoStyles.demo, { paddingTop: PaddingTop }]}>
+        <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
             <Typography type="title" style={GlobalStyles.textCenter}>HERE’S YOUR PERSONAL PROGRAM FOR THE WEEK</Typography>
 
             <DaysManager value={day} days={Days} onSelect={(day) => setDay(day)}  />

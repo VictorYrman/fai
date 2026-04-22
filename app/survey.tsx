@@ -18,7 +18,6 @@ import { Spacing } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
-import { SurveyStyles } from "@/styles/screens/Survey.styles";
 
 export default function Survey() {
     const [currentPage, setCurrentPage] = useState<number>(0);
@@ -43,7 +42,7 @@ export default function Survey() {
     };
 
     return (
-        <GradientBackground style={[SurveyStyles.survey, { paddingTop: PaddingTop }]}>
+        <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
             <Typography type="title" style={GlobalStyles.textCenter}>TELL US ABOUT YOU</Typography>
 
             <PagerView ref={pagerRef} style={{ flex: 1 }} initialPage={0} onPageSelected={(event) => setCurrentPage(event.nativeEvent.position)}>

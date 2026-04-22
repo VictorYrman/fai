@@ -5,7 +5,9 @@ import { StyleSheet } from "react-native";
 import { BorderRadius, Colors, Shadows, Spacing } from "@/constants/theme";
 
 export const GlobalStyles = StyleSheet.create({
-    container: {
+    screen: {
+        flex: 1,
+        gap: Spacing.long,
         padding: Spacing.medium
     },
     columnCenter: {

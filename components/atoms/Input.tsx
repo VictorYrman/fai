@@ -22,7 +22,7 @@ const Input = ({ value, icon, placeholder, onChange }: InputProps) => {
     return (
         <View style={InputStyles.inputWrapper}>
             <TextInput value={value} placeholder={placeholder} placeholderTextColor={Colors.lightTranslucent} onChangeText={onChange} style={InputStyles.input} />
-            {icon && <Icon icon={icon} style={InputStyles.inputIcon} />}
+            {icon && <Icon icon={icon} color={Colors.lightTranslucent} style={InputStyles.inputIcon} />}
         </View>
     );
 };

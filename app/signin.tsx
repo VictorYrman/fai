@@ -21,7 +21,7 @@ export default function SignIn() {
     const PaddingTop = HeaderHeight + Spacing.long;
 
     return (
-        <GradientBackground style={[SignInStyles.signIn, { paddingTop: PaddingTop }]}>
+        <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
             <View style={SignInStyles.signInContent}>
                 <Typography type="title">WELCOME TO FAI!</Typography>
                 <Typography
