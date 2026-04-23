@@ -74,7 +74,7 @@ export default function Survey() {
             {currentPage !== totalPages - 1 ? (
                 <SurveyManager currentPage={currentPage} totalPages={totalPages} onPrevious={onPrevious} onNext={onNext} />
             ) : (
-                <Button type="gradient" onPress={() => router.navigate("/(tabs)")}>
+                <Button type="gradient" onPress={() => router.navigate("/demo")}>
                     <Typography type="key" style={GlobalStyles.textDark}>CREATE A TRAINING PROGRAM!</Typography>
                 </Button>
             )}

@@ -6,19 +6,29 @@ import GradientBackground from "@/components/atoms/GradientBackground";
 
 // External Dependencies
 import { View } from "react-native";
+import { useRouter } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 // Constants
-import { Spacing } from "@/constants/theme";
+import { Colors, Spacing } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { SignInStyles } from "@/styles/screens/SignIn.styles";
 
 export default function SignIn() {
+    const router = useRouter();
     const HeaderHeight = useHeaderHeight();
 
     const PaddingTop = HeaderHeight + Spacing.long;
+
+    const onClickGoogleHandler = () => {
+        router.navigate("/(tabs)");
+    };
+
+    const onClickGuestHandler = () => {
+        router.navigate("/(tabs)");
+    };
 
     return (
         <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
@@ -35,15 +45,21 @@ export default function SignIn() {
             </View>
 
             <View style={SignInStyles.signInContent}>
-                <Button type="google" onPress={() => {}}>
+                <Button type="google" onPress={onClickGoogleHandler}>
                     <Icon icon="google" />
                     <Typography type="key" style={GlobalStyles.textDark}>CONTINUE WITH GOOGLE</Typography>
                 </Button>
 
-                <Button type="gradient" onPress={() => {}}>
-                    <Icon icon="guest" />
-                    <Typography type="key" style={GlobalStyles.textDark}>CONTINUE AS A GUEST</Typography>
-                </Button>
+                <View style={{
+                    ...GlobalStyles.elementsGap,
+                    width: "100%"
+                }}>
+                    <Button type="gradient" onPress={onClickGuestHandler}>
+                        <Icon icon="guest" color={Colors.dark} />
+                        <Typography type="key" style={GlobalStyles.textDark}>CONTINUE AS A GUEST</Typography>
+                    </Button>
+                    <Typography type="small" style={[GlobalStyles.textCenter, GlobalStyles.textItalic]}>Guest - data is stored only on this phone. It will be lost when you change devices.</Typography>
+                </View>
             </View>
         </GradientBackground>
     );

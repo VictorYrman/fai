@@ -1,4 +1,5 @@
 // Atoms Components
+import Button from "@/components/atoms/Button";
 import GradientBackground from "@/components/atoms/GradientBackground";
 import Typography from "@/components/atoms/Typography";
 
@@ -7,6 +8,8 @@ import DaysManager from "@/components/molecules/DaysManager";
 
 // External Dependencies
 import { useState } from "react";
+import { View } from "react-native";
+import { useRouter } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 // Constants
@@ -27,6 +30,8 @@ const Days = [
 
 export default function Demo() {
     const [day, setDay] = useState<string>(Days[0].value);
+
+    const router = useRouter();
     const HeaderHeight = useHeaderHeight();
 
     const PaddingTop = HeaderHeight + Spacing.long;
@@ -35,7 +40,13 @@ export default function Demo() {
         <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
             <Typography type="title" style={GlobalStyles.textCenter}>HERE’S YOUR PERSONAL PROGRAM FOR THE WEEK</Typography>
 
-            <DaysManager value={day} days={Days} onSelect={(day) => setDay(day)}  />
+            <View style={{ flex: 1 }}>
+                <DaysManager value={day} days={Days} onSelect={(day) => setDay(day)}  />
+            </View>
+
+            <Button type="gradient" onPress={() => router.navigate("/signin")}>
+                <Typography type="key" style={GlobalStyles.textDark}>SAVE THE TRAINING PROGRAM</Typography>
+            </Button>
         </GradientBackground>
     );
 };

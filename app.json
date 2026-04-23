@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "fai",
+    "name": "FAI",
     "slug": "fai",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.theyrman.fai"
     },
     "web": {
       "output": "static",
@@ -81,6 +82,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c519f1fd-5df1-410b-9ee3-214289100cf0"
+      }
     }
   }
 }

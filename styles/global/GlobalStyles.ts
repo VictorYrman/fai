@@ -75,7 +75,12 @@ export const GlobalStyles = StyleSheet.create({
     textLight: {
         color: Colors.light
     },
+
     textCenter: {
         textAlign: "center"
+    },
+
+    textItalic: {
+        fontStyle: "italic"
     }
 });
