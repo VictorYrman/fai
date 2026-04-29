@@ -15,7 +15,14 @@ export default function Home() {
     return (
         <GradientBackground style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}>
             <Typography type="title" style={GlobalStyles.textCenter}>WELCOME BACK!</Typography>
-            <View></View>
+
+            <View>
+                <Typography type="subtitle">CURRENT TASKS</Typography>
+            </View>
+
+            <View>
+                <Typography type="subtitle">EXERCISE DATABASE</Typography>
+            </View>
         </GradientBackground>
     );
 };

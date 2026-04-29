@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FAI",
+    "name": "FAI: Fitness Adaptive Intelligence",
     "slug": "fai",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -69,13 +69,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/fai-splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "backgroundColor": "#0B0E23"
         }
       ]
     ],

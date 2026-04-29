@@ -13,7 +13,7 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 // Props Type
 type ImageOptionProps = {
     value: string;
-    image: string;
+    image: any;
     title: string;
     isSelected: boolean;
     onSelect: (value: string) => void;

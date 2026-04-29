@@ -1,23 +1,22 @@
 // Atoms Components
 import Icon from "@/components/atoms/Icon";
 
+// Organisms Components
+import TabBar from "@/components/organisms/TabBar";
+
 // External Dependencies
 import { Tabs } from "expo-router";
 
 // Constants
-import { Colors, IconSize } from "@/constants/theme";
+import { IconSize } from "@/constants/theme";
 
 export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{
-                tabBarActiveTintColor: Colors.primary,
-                headerShown: false,
-                tabBarStyle: {
-                    backgroundColor: Colors.background,
-                    borderTopWidth: 0
-                }
+                headerShown: false
             }}
+            tabBar={(props) => <TabBar props={props} />}
         >
             <Tabs.Screen name="index" options={{
                 title: "Home",

@@ -75,6 +75,12 @@ export const GlobalStyles = StyleSheet.create({
     textLight: {
         color: Colors.light
     },
+    textLightTranslucent: {
+        color: Colors.lightTranslucent
+    },
+    textWarning: {
+        color: Colors.warning
+    },
 
     textCenter: {
         textAlign: "center"

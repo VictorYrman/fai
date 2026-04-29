@@ -1,21 +1,21 @@
 // Organisms Components
 import Header from "@/components/organisms/Header";
 
-// External Components
+// External Dependencies
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
-      </Stack.Screen>
-      <Stack.Screen name="survey" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
-      </Stack.Screen>
-      <Stack.Screen name="demo" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}></Stack.Screen>
-      <Stack.Screen name="signin" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
-      </Stack.Screen>
-      <Stack.Screen name="(tabs)" options={{ headerShown: true, headerTransparent: true, header: () => <Header /> }}>
-      </Stack.Screen>
+    <Stack screenOptions={{
+      headerShown: true,
+      headerTransparent: true,
+      header: () => <Header />
+    }}>
+      <Stack.Screen name="index"></Stack.Screen>
+      <Stack.Screen name="survey"></Stack.Screen>
+      <Stack.Screen name="demo"></Stack.Screen>
+      <Stack.Screen name="signin"></Stack.Screen>
+      <Stack.Screen name="(tabs)"></Stack.Screen>
     </Stack>
   );
 }

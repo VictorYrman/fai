@@ -1,34 +1,40 @@
 // Atoms Components
+import Advice, { AdviceType } from '../atoms/Advice';
 import Typography from '../atoms/Typography';
+import OptionCircle from '../atoms/OptionCircle';
 
 // External Dependencies
 import { Image } from 'expo-image';
 import { Pressable, PressableProps, View } from 'react-native';
 
+// Store
+import { useSurveyStore } from '@/store/useSurveyStore';
+
 // Styles
-import { CardOptionStyles } from '@/styles/components/molecules/CardOption.styles';
 import { GlobalStyles } from '@/styles/global/GlobalStyles';
-import OptionCircle from '../atoms/OptionCircle';
+import { CardOptionStyles } from '@/styles/components/molecules/CardOption.styles';
 
 // Props Type
 type CardOptionProps = PressableProps & {
     value: string;
-    image: string;
+    image: any;
     title: string;
     description: string;
-    advice?: string;
+    advice?: { type: AdviceType, title: string };
     isSelected: boolean;
     onSelect: (value: string) => void;
 };
 
 const CardOption = ({ value, image, title, description, advice, isSelected, onSelect }: CardOptionProps) => {
+    const { survey } = useSurveyStore();
+
     const onSelectHandler = () => {
         onSelect(value);
     };
 
     return (
         <Pressable onPress={onSelectHandler} style={[CardOptionStyles.cardOption, isSelected ? CardOptionStyles.cardOptionSelected : null]}>
-            <Image source={image} style={CardOptionStyles.cardOptionImage} />
+            <Image source={survey.gender === "Male" ? image.male : image.female} style={CardOptionStyles.cardOptionImage} />
 
             <View style={[CardOptionStyles.cardOptionContent]}>
                 <Typography type="key" style={isSelected ? GlobalStyles.textPrimary : null}>{title}</Typography>
@@ -37,7 +43,7 @@ const CardOption = ({ value, image, title, description, advice, isSelected, onSe
 
             <View style={CardOptionStyles.statusContainer}>
                 {advice && (
-                    <Typography type="paragraph">{advice}</Typography>
+                    <Advice type={advice.type} title={advice.title} />
                 )}
                 <OptionCircle isSelected={isSelected} />
             </View>

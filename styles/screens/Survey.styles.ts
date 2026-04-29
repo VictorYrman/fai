@@ -1,4 +1,11 @@
 // External Dependencies
 import { StyleSheet } from "react-native";
 
-export const SurveyStyles = StyleSheet.create({});
+// Styles
+import { GlobalStyles } from "../global/GlobalStyles";
+
+export const SurveyStyles = StyleSheet.create({
+    surveyContent: {
+        ...GlobalStyles.sectionGap
+    }
+});

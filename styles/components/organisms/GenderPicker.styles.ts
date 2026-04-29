@@ -4,11 +4,9 @@ import { StyleSheet } from "react-native";
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
-export const DaysManagerStyles = StyleSheet.create({
-    daysManager: {
+export const GenderPickerStyles = StyleSheet.create({
+    genderPicker: {
         ...GlobalStyles.rowAlignCenter,
-        ...GlobalStyles.elementsGap,
-        flexWrap: "wrap",
-        justifyContent: "center"
+        ...GlobalStyles.contentGap
     }
 });

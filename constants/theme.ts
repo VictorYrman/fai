@@ -28,7 +28,7 @@ export const Typography = {
     fontSize: 24
   },
   key: {
-    fontSize: 20
+    fontSize: 18
   },
   paragraph: {
     fontSize: 16,
