@@ -20,7 +20,6 @@ export default function Index() {
   const HeaderHeight = useHeaderHeight();
 
   const PaddingTop = HeaderHeight + Spacing.long;
-
   return (
     <GradientBackground
       style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}

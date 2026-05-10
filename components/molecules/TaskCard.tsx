@@ -12,7 +12,7 @@ import { Colors, IconSize } from "@/constants/theme";
 import { TaskCardStyles } from "@/styles/components/molecules/TaskCard.styles";
 
 // Task Type
-type TaskType = "warmup" | "strength" | "cardio" | "stretch";
+export type TaskType = "warmup" | "strength" | "cardio" | "stretch";
 
 // Proprs Type
 type TaskCardProps = PressableProps & {

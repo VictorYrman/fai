@@ -15,7 +15,7 @@ import GoalPicker from "@/components/organisms/GoalPicker";
 import LevelPicker from "@/components/organisms/LevelPicker";
 
 // External Dependencies
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { Alert, View } from "react-native";
@@ -23,9 +23,12 @@ import PagerView from "react-native-pager-view";
 
 // Storage
 import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProgramStore } from "@/store/useProgramStore";
+import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Services
 import { areAllFieldsValid, isAgeValid, isGenderValid, isGoalValid, isHeightValid, isLevelValid, isWeightValid } from "@/services/ValidationService";
+import { generateAIProgram } from "@/services/AIService";
 
 // Constants
 import { Spacing } from "@/constants/theme";
@@ -36,7 +39,12 @@ import { SurveyStyles } from "@/styles/screens/Survey.styles";
 
 export default function Survey() {
     const [currentPage, setCurrentPage] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { survey, setField } = useSurveyStore();
+    const { exercises } = useReferenceStore();
+    const { setProgram } = useProgramStore();
+
     const router = useRouter();
     const HeaderHeight = useHeaderHeight();
 
@@ -44,6 +52,12 @@ export default function Survey() {
     const totalPages = 6;
 
     const PaddingTop = HeaderHeight + Spacing.long;
+
+    useEffect(() => {
+        if (loading) {
+            Alert.alert("Program", loading ? "Formation of a training program..." : "The training program has been formed!");
+        }
+    }, [loading])
 
     const onPrevious = () => {
         if (currentPage > 0) {
@@ -57,7 +71,7 @@ export default function Survey() {
         }
     };
 
-    const onClickCreateTrainingProgram = () => {
+    const onClickCreateTrainingProgram = async () => {
         let errorMessage = "Empty fields:";
 
         if (!isGenderValid(survey.gender)) {
@@ -92,7 +106,20 @@ export default function Survey() {
             errorMessage = errorMessage.slice(0, -1) + "!";
             Alert.alert("Survey", errorMessage);
         } else {
-            router.navigate("/demo");
+            try {
+                setLoading(true);
+
+                const response = await generateAIProgram(exercises, survey);
+                const program = JSON.parse(response);
+
+                setProgram(program);
+
+                router.navigate("/demo");
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         }
     };
 

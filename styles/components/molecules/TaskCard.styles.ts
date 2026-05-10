@@ -21,6 +21,7 @@ export const TaskCardStyles = StyleSheet.create({
         padding: Spacing.small
     },
     taskCardContent: {
-        ...GlobalStyles.elementsGap
+        ...GlobalStyles.elementsGap,
+        flex: 1
     }
 });
