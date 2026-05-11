@@ -5,7 +5,7 @@ import Typography from "@/components/atoms/Typography";
 
 // Molecules Components
 import Accordion from "@/components/molecules/Accordion";
-import TaskCard, { TaskType } from "@/components/molecules/TaskCard";
+import TaskCard from "@/components/molecules/TaskCard";
 import SelectionPicker from "@/components/molecules/SelectionPicker";
 
 // External Dependencies
@@ -16,7 +16,6 @@ import { useHeaderHeight } from "@react-navigation/elements";
 
 // Store
 import { useProgramStore } from "@/store/useProgramStore";
-import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Constants
 import { Spacing } from "@/constants/theme";
@@ -36,7 +35,6 @@ const Days = [
 
 export default function Demo() {
   const { program } = useProgramStore();
-  const { getExercise } = useReferenceStore();
 
   const [day, setDay] = useState<string>(Days[0].value);
   const [currentProgram, setCurrentProgram] = useState(program ? program.days[0] : undefined);
@@ -50,25 +48,6 @@ export default function Demo() {
   const HeaderHeight = useHeaderHeight();
 
   const PaddingTop = HeaderHeight + Spacing.long;
-
-  const getTaskInfo = (task: any) => {
-    const exercise = getExercise(task?.exerciseId);
-
-    return {
-      type: exercise?.exerciseCategory?.value as TaskType,
-      title: exercise?.name || "",
-      description: exercise?.isStatic ? `Выполните 1 подход в течение ${task.duration}, ${task.sets} подход(ов).` : `Выполните ${task.reps} повторений, ${task.sets} подход(ов).`
-    };
-  };
-
-  const getTaskCard = (task: any) => {
-    const taskInfo = getTaskInfo(task);
-    const uniqueTaskId = task.exerciseId + Date.now().toString();
-
-    return (
-      <TaskCard key={uniqueTaskId} type={taskInfo.type} title={taskInfo.title} description={taskInfo.description} onPress={() => console.info(task.exerciseId)}  />
-    );
-  };
 
   return (
     <GradientBackground
@@ -90,15 +69,15 @@ export default function Demo() {
         ) : (
           <View style={GlobalStyles.contentGap}>
             <Accordion title="Warm-up">
-              {currentProgram && currentProgram.warmup && currentProgram?.warmup.map((task) => getTaskCard(task))}
+              {currentProgram && currentProgram.warmup && currentProgram?.warmup.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
             </Accordion>
 
             <Accordion title="Base">
-              {currentProgram && currentProgram.base && currentProgram?.base.map((task) => getTaskCard(task))}
+              {currentProgram && currentProgram.base && currentProgram?.base.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
             </Accordion>
 
             <Accordion title="Cool-down">
-              {currentProgram && currentProgram.cooldown && currentProgram?.cooldown.map((task) => getTaskCard(task))}
+              {currentProgram && currentProgram.cooldown && currentProgram?.cooldown.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
             </Accordion>
           </View>
         )}

@@ -74,7 +74,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#0B0E23"
         }
-      ]
+      ],
+      "expo-video"
     ],
     "experiments": {
       "typedRoutes": true,

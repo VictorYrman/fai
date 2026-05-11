@@ -2,8 +2,15 @@
 import Icon from "../atoms/Icon";
 import Typography from "../atoms/Typography";
 
+// Organisms Components
+import TaskModal from "../organisms/TaskModal";
+
 // External Dependencies
+import { useState } from "react";
 import { View, Pressable, PressableProps } from "react-native";
+
+// Store
+import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Constants
 import { Colors, IconSize } from "@/constants/theme";
@@ -16,29 +23,45 @@ export type TaskType = "warmup" | "strength" | "cardio" | "stretch";
 
 // Proprs Type
 type TaskCardProps = PressableProps & {
-    type: TaskType;
-    title: string;
-    description: string;
-    onPress: () => void;
+    task: any;
 };
 
-const TaskCard = ({ type, title, description, onPress }: TaskCardProps) => {
+const TaskCard = ({ task }: TaskCardProps) => {
+    const { getExercise } = useReferenceStore();
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+    const getTaskInfo = (task: any) => {
+        const exercise = getExercise(task?.exerciseId);
+
+        return {
+            type: exercise?.exerciseCategory?.value as TaskType,
+            title: exercise?.name || "",
+            description:  `${task.isStatic ? `ВРЕМЯ ВЫПОЛНЕНИЯ: ${task?.duration}` : `ПОВТОРЕНИЯ: ${task?.reps}`} / ПОДХОДЫ: ${task?.sets} / ОТДЫХ: ${task?.rest} сек`
+        };
+    };
+
+    const taskInfo = getTaskInfo(task);
+
     return (
-        <Pressable onPress={onPress} style={TaskCardStyles.taskCard}>
-            <View style={TaskCardStyles.taskCardIconWrapper}>
-                <Icon icon={type} width={IconSize.medium} height={IconSize.medium} color={Colors.light} />
-            </View>
+        <>
+            <Pressable onPress={() => setIsModalVisible(true)} style={TaskCardStyles.taskCard}>
+                <View style={TaskCardStyles.taskCardIconWrapper}>
+                    <Icon icon={taskInfo.type} width={IconSize.medium} height={IconSize.medium} color={Colors.light} />
+                </View>
 
-            <View style={TaskCardStyles.taskCardContent}>
-                <Typography type="key">
-                    {title}
-                </Typography>
+                <View style={TaskCardStyles.taskCardContent}>
+                    <Typography type="key">
+                        {taskInfo.title}
+                    </Typography>
 
-                <Typography type="paragraph">
-                    {description}
-                </Typography>
-            </View>
-        </Pressable>
+                    <Typography type="paragraph">
+                        {taskInfo.description}
+                    </Typography>
+                </View>
+            </Pressable>
+
+            <TaskModal task={task} visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+        </>
     );
 };
 

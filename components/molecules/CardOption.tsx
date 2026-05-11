@@ -34,7 +34,7 @@ const CardOption = ({ value, image, title, description, advice, isSelected, onSe
 
     return (
         <Pressable onPress={onSelectHandler} style={[CardOptionStyles.cardOption, isSelected ? CardOptionStyles.cardOptionSelected : null]}>
-            <Image source={survey.gender === "Male" ? image.male : image.female} style={CardOptionStyles.cardOptionImage} />
+            <Image source={survey.gender === "Female" ? image.female : image.male} style={CardOptionStyles.cardOptionImage} />
 
             <View style={[CardOptionStyles.cardOptionContent]}>
                 <Typography type="key" style={isSelected ? GlobalStyles.textPrimary : null}>{title}</Typography>

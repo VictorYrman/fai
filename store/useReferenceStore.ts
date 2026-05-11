@@ -17,6 +17,7 @@ type MuscleCategoryType = {
     id: string;
     name: string;
     value: string;
+    image: { man: string, woman: string }
 };
 
 type DifficultyLevelType = {
@@ -47,7 +48,9 @@ type ExerciseType = {
     name: string;
     description: string;
     exerciseCategory: ExerciseCategoryType | undefined;
+    muscleCategories: { isPrimary: boolean, muscleCategory: MuscleCategoryType }[];
     isStatic: boolean;
+    video: { man: string, woman: string };
 };
 
 type ReferenceState = {
@@ -193,7 +196,8 @@ export const useReferenceStore = create<ReferenceState>((set, get) => ({
                     goals: exercise.goalIds.map((goalId: string) => get().getGoal(goalId)),
                     impactPoints: exercise.impactPointIds.map((impactPointId: string) => get().getImpactPoint(impactPointId)),
                     jointLoad: get().getJointLoad(exercise.jointLoadId),
-                    isStatic: exercise.isStatic
+                    isStatic: exercise.isStatic,
+                    video: exercise.video
                 }
             });
 

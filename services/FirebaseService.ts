@@ -34,7 +34,8 @@ export const getMuscleCategories = async () => {
             return {
                 id: document.id,
                 name: data.name,
-                value: data.value
+                value: data.value,
+                image: data.image
             };
         });
 
@@ -149,7 +150,8 @@ export const getExercises = async () => {
                 goalIds: data.goalIds.map((reference: any) => reference.id) || [],
                 impactPointIds: data.impactPointIds.map((reference: any) => reference.id) || [],
                 jointLoadId: data.jointLoadId.id,
-                isStatic: data.isStatic
+                isStatic: data.isStatic,
+                video: data.video
             };
         });
 
