@@ -1,8 +1,8 @@
-// Molecules Components
-import SelectionPicker from "../molecules/SelectionPicker";
+// Organisms Components
+import SelectionPicker from "./SelectionPicker";
 
 // External Dependencies
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { View } from "react-native";
 import { RulerPicker } from "react-native-ruler-picker";
 
@@ -24,18 +24,33 @@ const HeightUnits = [
   { value: "ft", title: "ft" },
 ];
 
+const FT_TO_CM = 30.48;
+
 const HeightPicker = ({ value, onSelect }: HeightPickerProps) => {
   const [heightUnit, setHeightUnit] = useState<string>(HeightUnits[0].value);
 
   const onSelectHandler = (height: number) => {
     let heightInCm: number = height;
 
-    if (heightUnit === "ft") {
-      heightInCm = height * 30.479;
+    if (heightUnit === "cm") {
+      heightInCm = height;
+    } else {
+      heightInCm = height * FT_TO_CM;
     }
 
     onSelect(heightInCm);
   };
+
+  const displayValue = useMemo(() => {
+    return heightUnit === "cm" ? value : value / FT_TO_CM;
+  }, [heightUnit, value]);
+
+  const minValue = useMemo(() => {
+    return heightUnit === "cm" ? 100 : 3;
+  }, [heightUnit]);
+  const maxValue = useMemo(() => {
+    return heightUnit === "cm" ? 240 : 8;
+  }, [heightUnit]);
 
   return (
     <View style={HeightPickerStyles.heightPicker}>
@@ -46,11 +61,12 @@ const HeightPicker = ({ value, onSelect }: HeightPickerProps) => {
       />
 
       <RulerPicker
-        min={heightUnit === "cm" ? 100 : 3}
-        max={heightUnit === "cm" ? 240 : 8}
+        key={heightUnit}
+        min={minValue}
+        max={maxValue}
         step={0.1}
         fractionDigits={1}
-        initialValue={value}
+        initialValue={displayValue}
         onValueChangeEnd={(height: string) => onSelectHandler(Number(height))}
         unit={heightUnit}
         indicatorColor={Colors.light}

@@ -12,26 +12,46 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 // Props Type
 type ImageOptionProps = {
-    value: string;
-    image: any;
-    title: string;
-    isSelected: boolean;
-    onSelect: (value: string) => void;
-}
+  value: string;
+  image: any;
+  title: string;
+  isSelected: boolean;
+  onSelect: (value: string) => void;
+};
 
-const ImageOption = ({ value, image, title, isSelected, onSelect }: ImageOptionProps) => {
-    const onSelectHandler = () => {
-        onSelect(value);
-    }
+const ImageOption = ({
+  value,
+  image,
+  title,
+  isSelected,
+  onSelect,
+}: ImageOptionProps) => {
+  const onSelectHandler = () => {
+    onSelect(value);
+  };
 
-    return (
-        <Pressable onPress={onSelectHandler} style={[ImageOptionStyles.imageOption, isSelected ? ImageOptionStyles.imageOptionSelected : null]}>
-            <Image source={image} style={ImageOptionStyles.imageOptionImage} />
-            <Typography type="key" style={isSelected ? GlobalStyles.textPrimary : null}>{title}</Typography>
+  return (
+    <Pressable
+      onPress={onSelectHandler}
+      style={[
+        ImageOptionStyles.imageOption,
+        isSelected ? ImageOptionStyles.imageOptionSelected : null,
+      ]}
+    >
+      <Image source={image} style={ImageOptionStyles.imageOptionImage} />
+      <Typography
+        type="key"
+        style={isSelected ? GlobalStyles.textPrimary : null}
+      >
+        {title}
+      </Typography>
 
-            <OptionCircle isSelected={isSelected} style={ImageOptionStyles.statusContainer} />
-        </Pressable>
-    );
+      <OptionCircle
+        isSelected={isSelected}
+        style={ImageOptionStyles.statusContainer}
+      />
+    </Pressable>
+  );
 };
 
 export default ImageOption;

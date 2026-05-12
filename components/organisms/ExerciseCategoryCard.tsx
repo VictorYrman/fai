@@ -2,7 +2,7 @@
 import Typography from "../atoms/Typography";
 
 // Organisms Components
-import ExerciseCategoryModal from "../organisms/ExerciseCategoryModal";
+import ExerciseCategoryModal from "./ExerciseCategoryModal";
 
 // External Dependencies
 import { Image } from "expo-image";

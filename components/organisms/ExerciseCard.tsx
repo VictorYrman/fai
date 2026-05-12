@@ -3,7 +3,7 @@ import Icon from "../atoms/Icon";
 import Typography from "../atoms/Typography";
 
 // Organisms Components
-import ExerciseModal from "../organisms/ExerciseModal";
+import ExerciseModal from "./ExerciseModal";
 
 // External Dependencies
 import { useMemo, useState } from "react";

@@ -1,8 +1,8 @@
 // Atoms Components
-import Typography from "./Typography";
+import Typography from "../atoms/Typography";
 
 // Organisms Components
-import FilterModal from "../organisms/FilterModal";
+import FilterModal from "./FilterModal";
 
 // External Dependencies
 import { useState } from "react";

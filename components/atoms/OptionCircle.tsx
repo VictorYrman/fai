@@ -6,18 +6,22 @@ import { OptionCircleStyles } from "@/styles/components/atoms/OptionCircle.style
 
 // Props Type
 type OptionCircleProps = {
-    isSelected: boolean;
-    style?: StyleProp<ViewStyle>;
-}
+  isSelected: boolean;
+  style?: StyleProp<ViewStyle>;
+};
 
 const OptionCircle = ({ isSelected, style }: OptionCircleProps) => {
-    return (
-        <View style={[OptionCircleStyles.optionCircle, isSelected ? OptionCircleStyles.emptyCircleSelected : null, style]}>
-            {isSelected && (
-                <View style={OptionCircleStyles.circleSelected}></View>
-            )}
-        </View>
-    );
+  return (
+    <View
+      style={[
+        OptionCircleStyles.optionCircle,
+        isSelected ? OptionCircleStyles.emptyCircleSelected : null,
+        style,
+      ]}
+    >
+      {isSelected && <View style={OptionCircleStyles.circleSelected}></View>}
+    </View>
+  );
 };
 
 export default OptionCircle;

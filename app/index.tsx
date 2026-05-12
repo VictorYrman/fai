@@ -33,7 +33,7 @@ export default function Index() {
   if (!isLoaded) return null;
 
   if (program && areAllFieldsValid(survey)) {
-    return <Redirect href="/(tabs)" />
+    return <Redirect href="/(tabs)" />;
   }
 
   return (
@@ -41,17 +41,20 @@ export default function Index() {
       style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}
     >
       <View style={WelcomeStyles.welcomeContent}>
-        <Typography type="title">WELCOME TO FAI!</Typography>
+        <Typography type="title" style={GlobalStyles.textCenter}>
+          ДОБРО ПОЖАЛОВАТЬ В FAI!
+        </Typography>
         <Typography type="paragraph" style={GlobalStyles.textCenter}>
-          No gyms, memberships, or complicated equipment. Just a phone and a
-          desire, and you are already closer to your goal. FAI adapts to you,
-          your goals, and your well-being.
+          Никаких спортзалов, переплат, персональных гуру и железок. FAI
+          адаптируется под вас: под вашу цель, ваш график и ваше состояние прямо
+          сейчас. Просто возьмите телефон и начните. Ваш путь с FAI уже в ваших
+          руках.
         </Typography>
       </View>
 
       <Button type="gradient" onPress={() => router.navigate("/survey")}>
         <Typography type="key" style={GlobalStyles.textDark}>
-          START THE JOURNEY!
+          НАСТРОИТЬ ПОД СЕБЯ
         </Typography>
       </Button>
     </GradientBackground>

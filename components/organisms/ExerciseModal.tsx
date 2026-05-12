@@ -1,8 +1,6 @@
 // Molecules Components
+import ModalLayout from "../molecules/ModalLayout";
 import ExerciseContent from "../molecules/ExerciseContent";
-
-// Organisms Components
-import ModalLayout from "./ModalLayout";
 
 // Props Type
 type ExerciseModalProps = {

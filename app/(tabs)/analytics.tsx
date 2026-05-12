@@ -10,12 +10,16 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export default function Analytics() {
-    const HeaderHeight = useHeaderHeight();
+  const HeaderHeight = useHeaderHeight();
 
-    return (
-        <GradientBackground style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}>
-            <Typography type="title" style={GlobalStyles.textCenter}>YOUR STATS</Typography>
-            <View></View>
-        </GradientBackground>
-    );
-};
+  return (
+    <GradientBackground
+      style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}
+    >
+      <Typography type="title" style={GlobalStyles.textCenter}>
+        ВАША СТАТИСТИКА
+      </Typography>
+      <View></View>
+    </GradientBackground>
+  );
+}

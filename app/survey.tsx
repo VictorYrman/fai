@@ -5,173 +5,230 @@ import GradientBackground from "@/components/atoms/GradientBackground";
 
 // Molecules Components
 import SurveyManager from "@/components/molecules/SurveyManager";
+import AgePicker from "@/components/molecules/AgePicker";
 
 // Organisms Components
-import GenderPicker from "@/components/organisms/GenderPicker";
-import AgePicker from "@/components/organisms/AgePicker";
-import HeightPicker from "@/components/organisms/HeightPicker";
-import WeightPicker from "@/components/organisms/WeightPicker";
 import GoalPicker from "@/components/organisms/GoalPicker";
 import LevelPicker from "@/components/organisms/LevelPicker";
+import GenderPicker from "@/components/organisms/GenderPicker";
+import HeightPicker from "@/components/organisms/HeightPicker";
+import WeightPicker from "@/components/organisms/WeightPicker";
 
 // External Dependencies
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "expo-router";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { Alert, View } from "react-native";
 import PagerView from "react-native-pager-view";
+import { useRouter } from "expo-router";
+import { Alert, View } from "react-native";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { useEffect, useRef, useState } from "react";
+
+// Constants
+import { Spacing } from "@/constants/theme";
+
+// Services
+import {
+  areAllFieldsValid,
+  isAgeValid,
+  isGenderValid,
+  isGoalValid,
+  isHeightValid,
+  isLevelValid,
+  isWeightValid,
+} from "@/services/ValidationService";
+import { generateAIProgram } from "@/services/AIService";
 
 // Storage
 import { useSurveyStore } from "@/store/useSurveyStore";
 import { useProgramStore } from "@/store/useProgramStore";
 import { useReferenceStore } from "@/store/useReferenceStore";
 
-// Services
-import { areAllFieldsValid, isAgeValid, isGenderValid, isGoalValid, isHeightValid, isLevelValid, isWeightValid } from "@/services/ValidationService";
-import { generateAIProgram } from "@/services/AIService";
-
-// Constants
-import { Spacing } from "@/constants/theme";
-
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { SurveyStyles } from "@/styles/screens/Survey.styles";
 
 export default function Survey() {
-    const [currentPage, setCurrentPage] = useState<number>(0);
-    const [loading, setLoading] = useState<boolean>(false);
+  const { setProgram } = useProgramStore();
+  const { exercises } = useReferenceStore();
+  const { survey, setField } = useSurveyStore();
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const HeaderHeight = useHeaderHeight();
 
-    const { survey, setField } = useSurveyStore();
-    const { exercises } = useReferenceStore();
-    const { setProgram } = useProgramStore();
+  const pagerRef = useRef<PagerView>(null);
+  const totalPages = 6;
 
-    const router = useRouter();
-    const HeaderHeight = useHeaderHeight();
+  const PaddingTop = HeaderHeight + Spacing.long;
 
-    const pagerRef = useRef<PagerView>(null);
-    const totalPages = 6;
+  useEffect(() => {
+    if (loading) {
+      Alert.alert(
+        "Программа тренировок",
+        loading
+          ? "Формирование программы тренировок..."
+          : "Программа тренировок сформирована!",
+      );
+    }
+  }, [loading]);
 
-    const PaddingTop = HeaderHeight + Spacing.long;
+  const onPrevious = () => {
+    if (currentPage > 0) {
+      pagerRef.current?.setPage(currentPage - 1);
+    }
+  };
 
-    useEffect(() => {
-        if (loading) {
-            Alert.alert("Program", loading ? "Formation of a training program..." : "The training program has been formed!");
-        }
-    }, [loading])
+  const onNext = () => {
+    if (currentPage < totalPages - 1) {
+      pagerRef.current?.setPage(currentPage + 1);
+    }
+  };
 
-    const onPrevious = () => {
-        if (currentPage > 0) {
-            pagerRef.current?.setPage(currentPage - 1);
-        }
-    };
+  const onClickCreateTrainingProgram = async () => {
+    let errorMessage = "Пустые поля:";
 
-    const onNext = () => {
-        if (currentPage < totalPages - 1) {
-            pagerRef.current?.setPage(currentPage + 1);
-        }
-    };
+    if (!isGenderValid(survey.gender)) {
+      errorMessage += " gender;";
+    }
 
-    const onClickCreateTrainingProgram = async () => {
-        let errorMessage = "Empty fields:";
+    if (!isAgeValid(survey.age)) {
+      errorMessage += " age;";
+    }
 
-        if (!isGenderValid(survey.gender)) {
-            errorMessage += " gender;";
-        } 
-        
-        if (!isAgeValid(survey.age)) {
-            errorMessage += " age;";
-        } 
-        
-        if (!isHeightValid(survey.height)) {
-            errorMessage += " height;";
-        } 
-        
-        if (!isWeightValid(survey.weight)) {
-            errorMessage += " weight;";
-        } 
-        
-        if (!isGoalValid(survey.goal)) {
-            errorMessage += " goal;";
-        } 
-        
-        if (!isLevelValid(survey.level)) {
-            errorMessage += " level;";
-        }
+    if (!isHeightValid(survey.height)) {
+      errorMessage += " height;";
+    }
 
-        if (areAllFieldsValid(survey)) {
-            errorMessage = "";
-        }
+    if (!isWeightValid(survey.weight)) {
+      errorMessage += " weight;";
+    }
 
-        if (errorMessage) {
-            errorMessage = errorMessage.slice(0, -1) + "!";
-            Alert.alert("Survey", errorMessage);
-        } else {
-            try {
-                setLoading(true);
+    if (!isGoalValid(survey.goal)) {
+      errorMessage += " goal;";
+    }
 
-                const response = await generateAIProgram(exercises, survey);
-                const program = JSON.parse(response);
+    if (!isLevelValid(survey.level)) {
+      errorMessage += " level;";
+    }
 
-                setProgram(program);
+    if (areAllFieldsValid(survey)) {
+      errorMessage = "";
+    }
 
-                router.navigate("/demo");
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-    };
+    if (errorMessage) {
+      errorMessage = errorMessage.slice(0, -1) + "!";
+      Alert.alert("Survey", errorMessage);
+    } else {
+      try {
+        setLoading(true);
 
-    return (
-        <GradientBackground style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}>
-            <Typography type="title" style={GlobalStyles.textCenter}>TELL US ABOUT YOU</Typography>
+        const response = await generateAIProgram(exercises, survey);
+        const program = JSON.parse(response);
 
-            <PagerView ref={pagerRef} style={{ flex: 1 }} initialPage={0} onPageSelected={(event) => setCurrentPage(event.nativeEvent.position)}>
-                <View key={"gender"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your gender?</Typography>
+        setProgram(program);
 
-                    <GenderPicker value={survey.gender} onSelect={(gender: string) => setField("gender", gender)} />
-                </View>
+        router.navigate("/demo");
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
-                <View key={"age"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your age?</Typography>
+  return (
+    <GradientBackground
+      style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}
+    >
+      <Typography type="title" style={GlobalStyles.textCenter}>
+        РАССКАЖИТЕ О СЕБЕ
+      </Typography>
 
-                    <AgePicker value={survey.age} onSelect={(age: number) => setField("age", age)} />
-                </View>
+      <PagerView
+        ref={pagerRef}
+        style={{ flex: 1 }}
+        initialPage={0}
+        onPageSelected={(event) => setCurrentPage(event.nativeEvent.position)}
+      >
+        <View key={"gender"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Какого вы пола?
+          </Typography>
 
-                <View key={"height"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your height?</Typography>
+          <GenderPicker
+            value={survey.gender}
+            onSelect={(gender: string) => setField("gender", gender)}
+          />
+        </View>
 
-                    <HeightPicker value={survey.height} onSelect={(height: number) => setField("height", height)} />
-                </View>
+        <View key={"age"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Сколько вам лет?
+          </Typography>
 
-                <View key={"weight"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your weight?</Typography>
+          <AgePicker
+            value={survey.age}
+            onSelect={(age: number) => setField("age", age)}
+          />
+        </View>
 
-                    <WeightPicker value={survey.weight} onSelect={(weight: number) => setField("weight", weight)} />
-                </View>
-                
-                <View key={"goal"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your goal?</Typography>
+        <View key={"height"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Какой у вас рост?
+          </Typography>
 
-                    <GoalPicker value={survey.goal} onSelect={(goal: string) => setField("goal", goal)} />
-                </View>
+          <HeightPicker
+            value={survey.height}
+            onSelect={(height: number) => setField("height", height)}
+          />
+        </View>
 
-                <View key={"level"} style={SurveyStyles.surveyContent}>
-                    <Typography type="paragraph" style={GlobalStyles.textCenter}>What is your level?</Typography>
+        <View key={"weight"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Какой у вас вес?
+          </Typography>
 
-                    <LevelPicker value={survey.level} onSelect={(level: string) => setField("level", level)} />
-                </View>
-            </PagerView>
+          <WeightPicker
+            value={survey.weight}
+            onSelect={(weight: number) => setField("weight", weight)}
+          />
+        </View>
 
-            {currentPage !== totalPages - 1 ? (
-                <SurveyManager currentPage={currentPage} totalPages={totalPages} onPrevious={onPrevious} onNext={onNext} />
-            ) : (
-                <Button type="gradient" onPress={onClickCreateTrainingProgram}>
-                    <Typography type="key" style={GlobalStyles.textDark}>CREATE A TRAINING PROGRAM!</Typography>
-                </Button>
-            )}
-        </GradientBackground>
-    );
-};
+        <View key={"goal"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Какова ваша цель?
+          </Typography>
+
+          <GoalPicker
+            value={survey.goal}
+            onSelect={(goal: string) => setField("goal", goal)}
+          />
+        </View>
+
+        <View key={"level"} style={SurveyStyles.surveyContent}>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            Каков ваш уровень подготовки?
+          </Typography>
+
+          <LevelPicker
+            value={survey.level}
+            onSelect={(level: string) => setField("level", level)}
+          />
+        </View>
+      </PagerView>
+
+      {currentPage !== totalPages - 1 ? (
+        <SurveyManager
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
+      ) : (
+        <Button type="gradient" onPress={onClickCreateTrainingProgram}>
+          <Typography type="key" style={GlobalStyles.textDark}>
+            CREATE A TRAINING PROGRAM!
+          </Typography>
+        </Button>
+      )}
+    </GradientBackground>
+  );
+}

@@ -27,7 +27,7 @@ type ButtonProps = PressableProps & {
 // Gradient Coordinates
 const GradientCoordinates = {
   start: { x: 0, y: 0.5 },
-  end: { x: 1, y: 0.5 }
+  end: { x: 1, y: 0.5 },
 };
 
 // Gradient Colors
@@ -46,9 +46,7 @@ const Button = ({ type, children, onPress, ...props }: ButtonProps) => {
           {children}
         </LinearGradient>
       ) : (
-        <View style={ButtonStyles.buttonContainer}>
-          {children}
-        </View>
+        <View style={ButtonStyles.buttonContainer}>{children}</View>
       )}
     </Pressable>
   );

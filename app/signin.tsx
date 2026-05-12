@@ -74,11 +74,13 @@ export default function SignIn() {
       style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}
     >
       <View style={SignInStyles.signInContent}>
-        <Typography type="title">WELCOME TO FAI!</Typography>
+        <Typography type="title" style={GlobalStyles.textCenter}>
+          СОЗДАЙТЕ АККАУНТ FAI!
+        </Typography>
         <Typography type="paragraph" style={GlobalStyles.textCenter}>
-          No gyms, memberships, or complicated equipment. Just a phone and a
-          desire, and you are already closer to your goal. FAI adapts to you,
-          your goals, and your well-being.
+          Войдите в аккаунт, чтобы ваши тренировки, прогресс и достижения всегда
+          были с вами. Сохраните созданную программу, не потеряйте её при смене
+          телефона и возвращайтесь к тренировкам в любой момент.
         </Typography>
       </View>
 
@@ -86,7 +88,7 @@ export default function SignIn() {
         <Button type="google" onPress={onClickGoogleHandler}>
           <Icon icon="google" />
           <Typography type="key" style={GlobalStyles.textDark}>
-            CONTINUE WITH GOOGLE
+            ВОЙТИ ЧЕРЕЗ GOOGLE
           </Typography>
         </Button>
 
@@ -99,15 +101,15 @@ export default function SignIn() {
           <Button type="gradient" onPress={onClickGuestHandler}>
             <Icon icon="guest" color={Colors.dark} />
             <Typography type="key" style={GlobalStyles.textDark}>
-              CONTINUE AS A GUEST
+              ВОЙТИ КАК ГОСТЬ
             </Typography>
           </Button>
           <Typography
             type="small"
             style={[GlobalStyles.textCenter, GlobalStyles.textItalic]}
           >
-            Guest - data is stored only on this phone. It will be lost when you
-            change devices.
+            Гостевые данные хранятся только на этом телефоне. Они будут потеряны
+            при смене устройства.
           </Typography>
         </View>
       </View>

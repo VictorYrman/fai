@@ -2,8 +2,8 @@
 import Typography from "@/components/atoms/Typography";
 import GradientBackground from "@/components/atoms/GradientBackground";
 
-// Molecules Components
-import ExerciseCategoryCard from "@/components/molecules/ExerciseCategoryCard";
+// Organisms Components
+import ExerciseCategoryCard from "@/components/organisms/ExerciseCategoryCard";
 
 // External Dependencies
 import { View } from "react-native";
@@ -24,15 +24,15 @@ export default function Home() {
       style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}
     >
       <Typography type="title" style={GlobalStyles.textCenter}>
-        WELCOME BACK!
+        С ВОЗВРАЩЕНИЕМ!
       </Typography>
 
       <View>
-        <Typography type="subtitle">CURRENT TASKS</Typography>
+        <Typography type="subtitle">СЕГОДНЯШНИЕ ЗАДАНИЯ</Typography>
       </View>
 
       <View style={GlobalStyles.contentGap}>
-        <Typography type="subtitle">EXERCISE DATABASE</Typography>
+        <Typography type="subtitle">БАЗА УПРАЖНЕНИЙ</Typography>
 
         <View style={GlobalStyles.contentGap}>
           {exerciseCategories.map((exerciseCategory) => (

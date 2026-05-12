@@ -10,12 +10,16 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export default function Tasks() {
-    const HeaderHeight = useHeaderHeight();
+  const HeaderHeight = useHeaderHeight();
 
-    return (
-        <GradientBackground style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}>
-            <Typography type="title" style={GlobalStyles.textCenter}>YOUR TASKS</Typography>
-            <View></View>
-        </GradientBackground>
-    );
-};
+  return (
+    <GradientBackground
+      style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}
+    >
+      <Typography type="title" style={GlobalStyles.textCenter}>
+        ВАШИ ЗАДАНИЯ
+      </Typography>
+      <View></View>
+    </GradientBackground>
+  );
+}

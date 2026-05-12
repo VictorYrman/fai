@@ -13,44 +13,66 @@ import { SurveyManagerStyles } from "@/styles/components/molecules/SurveyManager
 
 // Props Type
 type SurveyManagerProps = {
-    currentPage: number;
-    totalPages: number;
-    onPrevious: () => void;
-    onNext: () => void;
+  currentPage: number;
+  totalPages: number;
+  onPrevious: () => void;
+  onNext: () => void;
 };
 
 // Gradient Coordinates
 const GradientCoordinates = {
-    start: { x: 0, y: 0.5 },
-    end: { x: 1, y: 1 }
+  start: { x: 0, y: 0.5 },
+  end: { x: 1, y: 1 },
 };
 
 // Gradient Colors
 const GradientColors = [Colors.primary, Colors.secondary] as const;
 
-const SurveyManager = ({ currentPage, totalPages, onPrevious, onNext }: SurveyManagerProps) => {
-    const progress = ((currentPage + 1) / totalPages) * 100;
+const SurveyManager = ({
+  currentPage,
+  totalPages,
+  onPrevious,
+  onNext,
+}: SurveyManagerProps) => {
+  const progress = ((currentPage + 1) / totalPages) * 100;
 
-    return (
-        <View style={SurveyManagerStyles.surveyManager}>
-            <Pressable onPress={onPrevious} disabled={currentPage === 0}>
-                <Icon icon="arrow-left" width={IconSize.medium} height={IconSize.medium} color={currentPage === 0 ? Colors.lightTranslucent : Colors.primary} />
-            </Pressable>
+  return (
+    <View style={SurveyManagerStyles.surveyManager}>
+      <Pressable onPress={onPrevious} disabled={currentPage === 0}>
+        <Icon
+          icon="arrow-left"
+          width={IconSize.medium}
+          height={IconSize.medium}
+          color={currentPage === 0 ? Colors.lightTranslucent : Colors.primary}
+        />
+      </Pressable>
 
-            <View style={SurveyManagerStyles.progressBar}>
-                <LinearGradient
-                    start={GradientCoordinates.start}
-                    end={GradientCoordinates.end}
-                    colors={GradientColors}
-                    style={[SurveyManagerStyles.progressBarFilled, { width: `${progress}%` }]}
-                ></LinearGradient>
-            </View>
+      <View style={SurveyManagerStyles.progressBar}>
+        <LinearGradient
+          start={GradientCoordinates.start}
+          end={GradientCoordinates.end}
+          colors={GradientColors}
+          style={[
+            SurveyManagerStyles.progressBarFilled,
+            { width: `${progress}%` },
+          ]}
+        ></LinearGradient>
+      </View>
 
-            <Pressable onPress={onNext} disabled={currentPage === totalPages - 1}>
-                <Icon icon="arrow-right" width={IconSize.medium} height={IconSize.medium} color={currentPage === totalPages - 1 ? Colors.lightTranslucent : Colors.primary} />
-            </Pressable>
-        </View>
-    );
+      <Pressable onPress={onNext} disabled={currentPage === totalPages - 1}>
+        <Icon
+          icon="arrow-right"
+          width={IconSize.medium}
+          height={IconSize.medium}
+          color={
+            currentPage === totalPages - 1
+              ? Colors.lightTranslucent
+              : Colors.primary
+          }
+        />
+      </Pressable>
+    </View>
+  );
 };
 
 export default SurveyManager;

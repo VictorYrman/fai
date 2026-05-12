@@ -5,8 +5,10 @@ import Typography from "@/components/atoms/Typography";
 
 // Molecules Components
 import Accordion from "@/components/molecules/Accordion";
-import TaskCard from "@/components/molecules/TaskCard";
-import SelectionPicker from "@/components/molecules/SelectionPicker";
+
+// Organisms Components
+import TaskCard from "@/components/organisms/TaskCard";
+import SelectionPicker from "@/components/organisms/SelectionPicker";
 
 // External Dependencies
 import { useEffect, useState } from "react";
@@ -24,23 +26,27 @@ import { Spacing } from "@/constants/theme";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 const Days = [
-  { value: "Monday", title: "Mon" },
-  { value: "Tuesday", title: "Tue" },
-  { value: "Wednesday", title: "Wed" },
-  { value: "Thursday", title: "Thu" },
-  { value: "Friday", title: "Fri" },
-  { value: "Saturday", title: "Sat" },
-  { value: "Sunday", title: "Sun" },
+  { value: "Monday", title: "ПНД" },
+  { value: "Tuesday", title: "ВТР" },
+  { value: "Wednesday", title: "СРД" },
+  { value: "Thursday", title: "ЧТВ" },
+  { value: "Friday", title: "ПТН" },
+  { value: "Saturday", title: "СБТ" },
+  { value: "Sunday", title: "ВСК" },
 ];
 
 export default function Demo() {
   const { program } = useProgramStore();
 
   const [day, setDay] = useState<string>(Days[0].value);
-  const [currentProgram, setCurrentProgram] = useState(program ? program.days[0] : undefined);
+  const [currentProgram, setCurrentProgram] = useState(
+    program ? program.days[0] : undefined,
+  );
 
   useEffect(() => {
-    const newCurrentProgram = program?.days.filter((programDay) => programDay.day.toLowerCase() === day.toLowerCase());
+    const newCurrentProgram = program?.days.filter(
+      (programDay) => programDay.day.toLowerCase() === day.toLowerCase(),
+    );
     setCurrentProgram(newCurrentProgram ? newCurrentProgram[0] : undefined);
   }, [program, day]);
 
@@ -55,7 +61,7 @@ export default function Demo() {
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <Typography type="title" style={GlobalStyles.textCenter}>
-          HERE’S YOUR PERSONAL PROGRAM FOR THE WEEK
+          ВАША ПРОГРАММА НА НЕДЕЛЮ
         </Typography>
 
         <SelectionPicker
@@ -65,19 +71,33 @@ export default function Demo() {
         />
 
         {currentProgram === undefined ? (
-          <Typography type="paragraph" style={GlobalStyles.textCenter}>There is no training scheduled for this day.</Typography>
+          <Typography type="paragraph" style={GlobalStyles.textCenter}>
+            На этот день не запланировано никаких тренировок.
+          </Typography>
         ) : (
           <View style={GlobalStyles.contentGap}>
-            <Accordion title="Warm-up">
-              {currentProgram && currentProgram.warmup && currentProgram?.warmup.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
+            <Accordion title="Разминка">
+              {currentProgram &&
+                currentProgram.warmup &&
+                currentProgram?.warmup.map((task) => (
+                  <TaskCard key={task.exerciseId} task={task} />
+                ))}
             </Accordion>
 
-            <Accordion title="Base">
-              {currentProgram && currentProgram.base && currentProgram?.base.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
+            <Accordion title="Основа">
+              {currentProgram &&
+                currentProgram.base &&
+                currentProgram?.base.map((task) => (
+                  <TaskCard key={task.exerciseId} task={task} />
+                ))}
             </Accordion>
 
-            <Accordion title="Cool-down">
-              {currentProgram && currentProgram.cooldown && currentProgram?.cooldown.map((task) => <TaskCard key={task.exerciseId} task={task}  />)}
+            <Accordion title="Заминка">
+              {currentProgram &&
+                currentProgram.cooldown &&
+                currentProgram?.cooldown.map((task) => (
+                  <TaskCard key={task.exerciseId} task={task} />
+                ))}
             </Accordion>
           </View>
         )}
@@ -85,7 +105,7 @@ export default function Demo() {
 
       <Button type="gradient" onPress={() => router.navigate("/signin")}>
         <Typography type="key" style={GlobalStyles.textDark}>
-          SAVE THE TRAINING PROGRAM
+          СОХРАНИТЬ ПРОГРАММУ
         </Typography>
       </Button>
     </GradientBackground>

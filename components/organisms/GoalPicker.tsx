@@ -25,9 +25,14 @@ const GoalPicker = ({ value, onSelect }: GoalPickerProps) => {
         male: require("@/assets/images/design/survey/goals/weight-loss-male.png"),
         female: require("@/assets/images/design/survey/goals/weight-loss-female.png"),
       },
-      title: "Lose weight",
-      description: "Lose weight with personalized programs...",
-      advice: BMI < 18.5 ? { type: "warning", title: "Not recommended" } : BMI >= 25 ? { type: "recommendation", title: "Recommended" } : undefined
+      title: "Похудение",
+      description: "Худейте с помощью индивидуальных программ.",
+      advice:
+        BMI < 18.5
+          ? { type: "warning", title: "Не рекомендовано" }
+          : BMI >= 25
+            ? { type: "recommendation", title: "Рекомендовано" }
+            : undefined,
     },
     {
       value: "muscle-building",
@@ -35,10 +40,9 @@ const GoalPicker = ({ value, onSelect }: GoalPickerProps) => {
         male: require("@/assets/images/design/survey/goals/muscle-building-male.png"),
         female: require("@/assets/images/design/survey/goals/muscle-building-female.png"),
       },
-      title: "Muscle building",
-      description:
-        "Build a strong body! Focus on strength training for growth...",
-      advice: undefined
+      title: "Набор мышечной массы",
+      description: "Создайте сильное и подтянутое тело!",
+      advice: undefined,
     },
     {
       value: "keeping-fit",
@@ -46,9 +50,12 @@ const GoalPicker = ({ value, onSelect }: GoalPickerProps) => {
         male: require("@/assets/images/design/survey/goals/keeping-fit-male.png"),
         female: require("@/assets/images/design/survey/goals/keeping-fit-female.png"),
       },
-      title: "Keep fit",
-      description: "Maintain a perfect balance! Balanced workouts for...",
-      advice: (BMI >= 18.5 && BMI < 25) ? { type: "recommendation", title: "Great Option!" } : undefined
+      title: "Тонус и здоровье",
+      description: "Поддерживайте идеальный баланс!",
+      advice:
+        BMI >= 18.5 && BMI < 25
+          ? { type: "recommendation", title: "Рекомендую" }
+          : undefined,
     },
   ];
 

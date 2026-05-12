@@ -3,10 +3,8 @@ import Button from "../atoms/Button";
 import Typography from "../atoms/Typography";
 
 // Molecules Components
+import ModalLayout from "../molecules/ModalLayout";
 import ExerciseContent from "../molecules/ExerciseContent";
-
-// Organisms Components
-import ModalLayout from "./ModalLayout";
 
 // External Dependencies
 import { useMemo } from "react";

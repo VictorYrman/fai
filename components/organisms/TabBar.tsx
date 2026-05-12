@@ -1,5 +1,5 @@
 // Atoms Components
-import Typography from "../atoms/Typography";
+// import Typography from "../atoms/Typography";
 
 // External Dependencies
 import { Pressable, View } from "react-native";
@@ -9,7 +9,7 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Colors, IconSize } from "@/constants/theme";
 
 // Styles
-import { GlobalStyles } from "@/styles/global/GlobalStyles";
+// import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { TabBarStyles } from "@/styles/components/organisms/TabBar.styles";
 
 // Props Type
@@ -29,7 +29,7 @@ const TabBar = ({ props }: TabBarProps) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
         const icon = options.tabBarIcon;
-        const title = options.title;
+        // const title = options.title;
 
         const onPress = () => {
           const event = navigation.emit({
@@ -60,7 +60,7 @@ const TabBar = ({ props }: TabBarProps) => {
                 focused: isFocused,
                 size: IconSize.medium,
               })}
-            <Typography
+            {/* <Typography
               type="paragraph"
               style={
                 isFocused
@@ -69,7 +69,7 @@ const TabBar = ({ props }: TabBarProps) => {
               }
             >
               {title}
-            </Typography>
+            </Typography> */}
           </Pressable>
         );
       })}

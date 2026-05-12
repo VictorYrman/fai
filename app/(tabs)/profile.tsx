@@ -10,12 +10,16 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export default function Profile() {
-    const HeaderHeight = useHeaderHeight();
+  const HeaderHeight = useHeaderHeight();
 
-    return (
-        <GradientBackground style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}>
-            <Typography type="title" style={GlobalStyles.textCenter}>YOUR PROFILE</Typography>
-            <View></View>
-        </GradientBackground>
-    );
-};
+  return (
+    <GradientBackground
+      style={[GlobalStyles.screen, { paddingTop: HeaderHeight }]}
+    >
+      <Typography type="title" style={GlobalStyles.textCenter}>
+        ВАШ ПРОФИЛЬ
+      </Typography>
+      <View></View>
+    </GradientBackground>
+  );
+}

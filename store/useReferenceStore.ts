@@ -1,5 +1,5 @@
 // Molecules Components
-import { TaskType } from "@/components/molecules/TaskCard";
+import { TaskType } from "@/components/organisms/TaskCard";
 
 // External Dependencies
 import { create } from "zustand";

@@ -1,12 +1,10 @@
-// Atoms Components
-import Input from "../atoms/Input";
-import Filter, { FilterValueType } from "../atoms/Filter";
-
 // Molecules Components
-import ExerciseCard from "../molecules/ExerciseCard";
+import Input from "../molecules/Input";
+import ModalLayout from "../molecules/ModalLayout";
 
 // Organisms Components
-import ModalLayout from "./ModalLayout";
+import Filter, { FilterValueType } from "./Filter";
+import ExerciseCard from "./ExerciseCard";
 
 // External Dependencies
 import { useMemo, useState } from "react";
@@ -38,7 +36,9 @@ const ExerciseCategoryModal = ({
 }: ExerciseCategoryModalProps) => {
   const { muscleCategories, exercises } = useReferenceStore();
   const [search, setSearch] = useState<string>("");
-  const [muscleCategory, setMuscleCategory] = useState<FilterValueType>(DefaultFilterValueMuscles);
+  const [muscleCategory, setMuscleCategory] = useState<FilterValueType>(
+    DefaultFilterValueMuscles,
+  );
 
   const MuscleCategories = useMemo(() => {
     const base = [DefaultFilterValueMuscles];

@@ -3,7 +3,7 @@ import Icon from "../atoms/Icon";
 import Typography from "../atoms/Typography";
 
 // Organisms Components
-import TaskModal from "../organisms/TaskModal";
+import TaskModal from "./TaskModal";
 
 // External Dependencies
 import { useMemo, useState } from "react";
@@ -41,7 +41,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
   };
 
   const taskInfo = useMemo(() => {
-    return getTaskInfo(task)
+    return getTaskInfo(task);
   }, [task]);
 
   return (
