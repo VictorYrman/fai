@@ -1,0 +1,95 @@
+export default {
+  expo: {
+    name: "FAI: Fitness Adaptive Intelligence",
+    slug: "fai",
+    version: "1.0.0",
+    orientation: "portrait",
+    icon: "./assets/images/icon.png",
+    scheme: "fai",
+    userInterfaceStyle: "automatic",
+    newArchEnabled: true,
+    ios: {
+      supportsTablet: true
+    },
+    android: {
+      adaptiveIcon: {
+        backgroundColor: "#E6F4FE",
+        foregroundImage: "./assets/images/android-icon-foreground.png",
+        backgroundImage: "./assets/images/android-icon-background.png",
+        monochromeImage: "./assets/images/android-icon-monochrome.png"
+      },
+      googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./google-services.json",
+      edgeToEdgeEnabled: true,
+      predictiveBackGestureEnabled: false,
+      package: "com.theyrman.fai"
+    },
+    web: {
+      output: "static",
+      favicon: "./assets/images/favicon.png"
+    },
+    plugins: [
+      [
+        "expo-font",
+        {
+          fonts: [
+            "./assets/fonts/Inter-Regular.ttf",
+            "./assets/fonts/Inter-SemiBold.ttf",
+            "./assets/fonts/Inter-Bold.ttf"
+          ],
+          android: {
+            fonts: [
+              {
+                fontFamily: "Inter",
+                fontDefinitions: [
+                  {
+                    path: "./assets/fonts/Inter-Regular.ttf",
+                    weight: 400
+                  },
+                  {
+                    path: "./assets/fonts/Inter-SemiBold.ttf",
+                    weight: 600
+                  },
+                  {
+                    path: "./assets/fonts/Inter-Bold.ttf",
+                    weight: 700
+                  }
+                ]
+              }
+            ]
+          },
+          ios: {
+            fonts: [
+              "./assets/fonts/Inter-Regular.ttf",
+              "./assets/fonts/Inter-SemiBold.ttf",
+              "./assets/fonts/Inter-Bold.ttf"
+            ]
+          }
+        }
+      ],
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          image: "./assets/images/fai-splash-icon.png",
+          imageWidth: 200,
+          resizeMode: "contain",
+          backgroundColor: "#0B0E23"
+        }
+      ],
+      "expo-video",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-google-signin/google-signin"
+    ],
+    experiments: {
+      typedRoutes: true,
+      reactCompiler: true
+    },
+    extra: {
+      router: {},
+      eas: {
+        projectId: "c519f1fd-5df1-410b-9ee3-214289100cf0"
+      }
+    }
+  }
+};

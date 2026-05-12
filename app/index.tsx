@@ -5,21 +5,37 @@ import GradientBackground from "@/components/atoms/GradientBackground";
 
 // External Dependencies
 import { View } from "react-native";
-import { useRouter } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
+import { Redirect, useRouter } from "expo-router";
 
 // Constants
 import { Spacing } from "@/constants/theme";
+
+// Services
+import { areAllFieldsValid } from "@/services/ValidationService";
+
+// Store
+import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProgramStore } from "@/store/useProgramStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { WelcomeStyles } from "@/styles/screens/Welcome.styles";
 
 export default function Index() {
+  const { survey } = useSurveyStore();
+  const { program, isLoaded } = useProgramStore();
   const router = useRouter();
   const HeaderHeight = useHeaderHeight();
 
   const PaddingTop = HeaderHeight + Spacing.long;
+
+  if (!isLoaded) return null;
+
+  if (program && areAllFieldsValid(survey)) {
+    return <Redirect href="/(tabs)" />
+  }
+
   return (
     <GradientBackground
       style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}

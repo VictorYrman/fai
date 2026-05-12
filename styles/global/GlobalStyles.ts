@@ -10,6 +10,12 @@ export const GlobalStyles = StyleSheet.create({
         gap: Spacing.long,
         padding: Spacing.medium
     },
+    modal: {
+        flex: 1,
+        gap: Spacing.long,
+        padding: Spacing.medium,
+        backgroundColor: Colors.background
+    },
     columnCenter: {
         alignItems: "center",
         justifyContent: "center"

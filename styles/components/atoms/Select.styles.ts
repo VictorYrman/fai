@@ -2,18 +2,20 @@
 import { StyleSheet } from "react-native";
 
 // Constants
-import { BorderRadius, Colors, Shadows, Spacing } from "@/constants/theme";
+import { BorderRadius, Shadows, Spacing } from "@/constants/theme";
+
+// Styles
+import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export const SelectStyles = StyleSheet.create({
-    select: {
-        backgroundColor: Colors.lightTranslucent,
-        borderRadius: BorderRadius.small
-    },
-    selectContainer: {
-        borderRadius: BorderRadius.small,
-        padding: Spacing.small
-    },
-    selectSelected: {
-        ...Shadows.primary
-    }
+  select: {
+    ...GlobalStyles.interactiveElement,
+  },
+  selectContainer: {
+    borderRadius: BorderRadius.small,
+    padding: Spacing.small,
+  },
+  selectSelected: {
+    ...Shadows.primary,
+  },
 });

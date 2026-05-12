@@ -1,162 +1,160 @@
 // External Dependencies
+import { collection, getDocs } from "@react-native-firebase/firestore";
+
+// Config
 import { db } from "@/config/firebase";
-import { collection, getDocs } from "firebase/firestore";
 
 export const getExerciseCategories = async () => {
-    try {
-        const exerciseCategoriesCollection = collection(db, "ExerciseCategories");
-        const querySnapshot = await getDocs(exerciseCategoriesCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "ExerciseCategories"));
 
-        const exerciseCategories = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const exerciseCategories = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                value: data.value
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        value: data.value,
+        image: data.image,
+      };
+    });
 
-        return exerciseCategories;
-    } catch (error) {
-        console.error(error);
-    }
+    return exerciseCategories;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getMuscleCategories = async () => {
-    try {
-        const muscleCategoriesCollection = collection(db, "MuscleCategories");
-        const querySnapshot = await getDocs(muscleCategoriesCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "MuscleCategories"));
 
-        const muscleCategories = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const muscleCategories = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                value: data.value,
-                image: data.image
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        value: data.value,
+        image: data.image,
+      };
+    });
 
-        return muscleCategories;
-    } catch (error) {
-        console.error(error);
-    }
+    return muscleCategories;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getDifficultyLevels = async () => {
-    try {
-        const difficultyLevelsCollection = collection(db, "DifficultyLevels");
-        const querySnapshot = await getDocs(difficultyLevelsCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "DifficultyLevels"));
 
-        const difficultyLevels = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const difficultyLevels = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                value: data.value
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        value: data.value,
+      };
+    });
 
-        return difficultyLevels;
-    } catch (error) {
-        console.error(error);
-    }
+    return difficultyLevels;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getGoals = async () => {
-    try {
-        const goalsCollection = collection(db, "Goals");
-        const querySnapshot = await getDocs(goalsCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "Goals"));
 
-        const goals = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const goals = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                value: data.value,
-                prioritySplit: data.prioritySplit
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        value: data.value,
+        prioritySplit: data.prioritySplit,
+      };
+    });
 
-        return goals;
-    } catch (error) {
-        console.error(error);
-    }
+    return goals;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getImpactPoints = async () => {
-    try {
-        const impactPointsCollection = collection(db, "ImpactPoints");
-        const querySnapshot = await getDocs(impactPointsCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "ImpactPoints"));
 
-        const impactPoints = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const impactPoints = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+      };
+    });
 
-        return impactPoints;
-    } catch (error) {
-        console.error(error);
-    }
+    return impactPoints;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getJointLoads = async () => {
-    try {
-        const jointLoadsCollection = collection(db, "JointLoads");
-        const querySnapshot = await getDocs(jointLoadsCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "JointLoads"));
 
-        const jointLoads = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const jointLoads = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                value: data.value
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        value: data.value,
+      };
+    });
 
-        return jointLoads;
-    } catch (error) {
-        console.error(error);
-    }
+    return jointLoads;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getExercises = async () => {
-    try {
-        const exercisesCollection = collection(db, "Exercises");
-        const querySnapshot = await getDocs(exercisesCollection);
+  try {
+    const querySnapshot = await getDocs(collection(db, "Exercises"));
 
-        const exercises = querySnapshot.docs.map((document) => {
-            const data = document.data();
+    const exercises = querySnapshot.docs.map((document) => {
+      const data = document.data();
 
-            return {
-                id: document.id,
-                name: data.name,
-                description: data.description,
-                exerciseCategoryId: data.exerciseCategoryId.id,
-                muscleCategories: data.muscleCategories.map((item: any) => ({
-                    isPrimary: item.isPrimary,
-                    muscleCategoryId: item.muscleCategoryId.id
-                })) || [],
-                difficultyLevelId: data.difficultyLevelId.id,
-                goalIds: data.goalIds.map((reference: any) => reference.id) || [],
-                impactPointIds: data.impactPointIds.map((reference: any) => reference.id) || [],
-                jointLoadId: data.jointLoadId.id,
-                isStatic: data.isStatic,
-                video: data.video
-            };
-        });
+      return {
+        id: document.id,
+        name: data.name,
+        description: data.description,
+        exerciseCategoryId: data.exerciseCategoryId.id,
+        muscleCategories:
+          data.muscleCategories.map((item: any) => ({
+            isPrimary: item.isPrimary,
+            muscleCategoryId: item.muscleCategoryId.id,
+          })) || [],
+        difficultyLevelId: data.difficultyLevelId.id,
+        goalIds: data.goalIds.map((reference: any) => reference.id) || [],
+        impactPointIds:
+          data.impactPointIds.map((reference: any) => reference.id) || [],
+        jointLoadId: data.jointLoadId.id,
+        isStatic: data.isStatic,
+        video: data.video,
+      };
+    });
 
-        return exercises;
-    } catch (error) {
-        console.error(error);
-    }
+    return exercises;
+  } catch (error) {
+    console.error(error);
+  }
 };
