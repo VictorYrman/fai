@@ -14,7 +14,7 @@ import { useSurveyStore } from "@/store/useSurveyStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
-import { CardOptionStyles } from "@/styles/components/molecules/CardOption.styles";
+import { CardOptionStyles } from "@/styles/components/organisms/CardOption.styles";
 
 // Props Type
 type CardOptionProps = PressableProps & {

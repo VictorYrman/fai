@@ -1,5 +1,5 @@
-// Organisms Components
-import Header from "@/components/organisms/Header";
+// Molecules Components
+import Header from "@/components/molecules/Header";
 
 // External Dependencies
 import { Stack } from "expo-router";
@@ -37,7 +37,10 @@ export default function RootLayout() {
       <Stack.Screen name="survey"></Stack.Screen>
       <Stack.Screen name="demo"></Stack.Screen>
       <Stack.Screen name="signin"></Stack.Screen>
-      <Stack.Screen name="(tabs)"></Stack.Screen>
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: false }}
+      ></Stack.Screen>
     </Stack>
   );
 }

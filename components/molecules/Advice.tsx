@@ -2,7 +2,7 @@
 import Typography from "../atoms/Typography";
 
 // Styles
-import { AdviceStyles } from "@/styles/components/atoms/Advice.styles";
+import { AdviceStyles } from "@/styles/components/molecules/Advice.styles";
 
 const AdviceTypes = {
   warning: [AdviceStyles.warning],

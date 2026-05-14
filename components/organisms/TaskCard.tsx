@@ -16,7 +16,7 @@ import { Colors, IconSize } from "@/constants/theme";
 import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Styles
-import { TaskCardStyles } from "@/styles/components/molecules/TaskCard.styles";
+import { TaskCardStyles } from "@/styles/components/organisms/TaskCard.styles";
 
 // Task Type
 export type TaskType = "warmup" | "strength" | "cardio" | "stretch";
@@ -36,7 +36,7 @@ const TaskCard = ({ task }: TaskCardProps) => {
     return {
       type: exercise?.exerciseCategory?.value as TaskType,
       title: exercise?.name || "",
-      description: `${task.isStatic ? `ВРЕМЯ ВЫПОЛНЕНИЯ: ${task?.duration}` : `ПОВТОРЕНИЯ: ${task?.reps}`} / ПОДХОДЫ: ${task?.sets} / ОТДЫХ: ${task?.rest} сек`,
+      description: `${exercise?.isStatic ? `ВРЕМЯ ВЫПОЛНЕНИЯ: ${task?.duration}` : `ПОВТОРЕНИЯ: ${task?.reps}`} / ПОДХОДЫ: ${task?.sets} / ОТДЫХ: ${task?.rest} сек`,
     };
   };
 

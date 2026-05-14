@@ -7,10 +7,8 @@ import { FirebaseAuthTypes, signOut } from "@react-native-firebase/auth";
 // Config
 import { auth } from "@/config/firebase";
 
-type UserType = {
-  uid: string | undefined;
-  displayName?: string;
-  email?: string;
+export type UserType = {
+  uid: string;
 };
 
 type AuthState = {
@@ -33,8 +31,6 @@ export const useAuthStore = create<AuthState>()(
         } else {
           const cleanUser: UserType = {
             uid: user?.uid,
-            email: user?.email || "",
-            displayName: user?.displayName || "",
           };
 
           set({ user: cleanUser, isAnonymous: user?.isAnonymous || false });

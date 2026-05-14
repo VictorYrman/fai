@@ -1,4 +1,4 @@
-// Molecules Components
+// Organisms Components
 import { TaskType } from "@/components/organisms/TaskCard";
 
 // External Dependencies
@@ -66,6 +66,7 @@ type ExerciseType = {
 };
 
 type ReferenceState = {
+  isReferenceDataLoaded: boolean;
   exerciseCategories: ExerciseCategoryType[];
   muscleCategories: MuscleCategoryType[];
   difficultyLevels: DifficultyLevelType[];
@@ -73,6 +74,8 @@ type ReferenceState = {
   impactPoints: ImpactPointType[];
   jointLoads: JointLoadType[];
   exercises: ExerciseType[];
+
+  setIsReferenceDataLoaded: (isReferenceDataLoaded: boolean) => void;
 
   getExerciseCategories: () => Promise<void>;
   getMuscleCategories: () => Promise<void>;
@@ -92,6 +95,7 @@ type ReferenceState = {
 };
 
 export const useReferenceStore = create<ReferenceState>((set, get) => ({
+  isReferenceDataLoaded: false,
   exerciseCategories: [],
   muscleCategories: [],
   difficultyLevels: [],
@@ -99,6 +103,8 @@ export const useReferenceStore = create<ReferenceState>((set, get) => ({
   impactPoints: [],
   jointLoads: [],
   exercises: [],
+  setIsReferenceDataLoaded: (isReferenceDataLoaded) =>
+    set({ isReferenceDataLoaded: isReferenceDataLoaded }),
   getExerciseCategories: async () => {
     const currentExerciseCategories = get().exerciseCategories;
 
@@ -181,7 +187,10 @@ export const useReferenceStore = create<ReferenceState>((set, get) => ({
   getExercises: async () => {
     const currentExercises = get().exercises;
 
-    if (currentExercises && currentExercises.length > 0) return;
+    if (currentExercises && currentExercises.length > 0) {
+      set({ isReferenceDataLoaded: true });
+      return;
+    }
 
     try {
       await Promise.all([
@@ -224,7 +233,7 @@ export const useReferenceStore = create<ReferenceState>((set, get) => ({
         };
       });
 
-      set({ exercises: exercises });
+      set({ exercises: exercises, isReferenceDataLoaded: true });
     } catch (error) {
       console.error(error);
     }

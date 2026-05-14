@@ -10,7 +10,7 @@ import { Colors } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
-import { SelectStyles } from "@/styles/components/atoms/Select.styles";
+import { SelectStyles } from "@/styles/components/molecules/Select.styles";
 
 // Props Type
 type SelectProps = PressableProps & {

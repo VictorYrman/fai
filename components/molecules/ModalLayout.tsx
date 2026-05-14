@@ -10,7 +10,7 @@ import { Colors, IconSize } from "@/constants/theme";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
-import { ModalLayoutStyles } from "@/styles/components/organisms/ModalLayout.styles";
+import { ModalLayoutStyles } from "@/styles/components/molecules/ModalLayout.styles";
 
 // Props Type
 type ModalLayoutProps = {

@@ -10,7 +10,7 @@ import { Colors, IconSize } from "@/constants/theme";
 
 // Styles
 // import { GlobalStyles } from "@/styles/global/GlobalStyles";
-import { TabBarStyles } from "@/styles/components/organisms/TabBar.styles";
+import { TabBarStyles } from "@/styles/components/molecules/TabBar.styles";
 
 // Props Type
 type TabBarProps = {

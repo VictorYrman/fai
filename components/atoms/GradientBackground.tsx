@@ -26,7 +26,7 @@ const GradientColors = [
 ] as const;
 
 // Locations
-const Locations = [0, 0.3, 0.7, 1] as const;
+const GradientLocations = [0, 0.3, 0.7, 1] as const;
 
 const GradientBackground = ({ children, style }: GradientBackgroundProps) => {
   return (
@@ -34,7 +34,7 @@ const GradientBackground = ({ children, style }: GradientBackgroundProps) => {
       start={Coordinates.start}
       end={Coordinates.end}
       colors={GradientColors}
-      locations={Locations}
+      locations={GradientLocations}
       style={style}
     >
       {children}

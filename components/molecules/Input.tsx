@@ -8,7 +8,7 @@ import { TextInput, View } from "react-native";
 import { Colors } from "@/constants/theme";
 
 // Styles
-import { InputStyles } from "@/styles/components/atoms/Input.styles";
+import { InputStyles } from "@/styles/components/molecules/Input.styles";
 
 // Props Type
 type InputProps = {

@@ -24,26 +24,27 @@ type ProgramType = {
 
 type ProgramState = {
   program: ProgramType | null;
-  isLoaded: boolean;
+  isProgramLoaded: boolean;
   setProgram: (program: ProgramType) => void;
-  setIsLoaded: (state: boolean) => void;
+  setIsProgramLoaded: (isProgramLoaded: boolean) => void;
 };
 
 export const useProgramStore = create<ProgramState>()(
   persist(
     (set): ProgramState => ({
       program: null,
-      isLoaded: false,
+      isProgramLoaded: false,
       setProgram: (program: ProgramType) => {
         set({ program: program });
       },
-      setIsLoaded: (state) => set({ isLoaded: state }),
+      setIsProgramLoaded: (isProgramLoaded) =>
+        set({ isProgramLoaded: isProgramLoaded }),
     }),
     {
       name: "program",
       storage: createJSONStorage(() => AsyncStorage),
       onRehydrateStorage: (state) => {
-        return () => state.setIsLoaded(true);
+        return () => state.setIsProgramLoaded(true);
       },
     },
   ),

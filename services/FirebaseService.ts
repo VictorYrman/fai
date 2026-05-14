@@ -1,5 +1,13 @@
 // External Dependencies
-import { collection, getDocs } from "@react-native-firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  serverTimestamp,
+  setDoc,
+} from "@react-native-firebase/firestore";
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
 // Config
 import { db } from "@/config/firebase";
@@ -154,6 +162,46 @@ export const getExercises = async () => {
     });
 
     return exercises;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const setProfile = async (user: FirebaseAuthTypes.User, additionalData: any) => {
+  try {
+    await setDoc(doc(db, "Profiles", user.uid), {
+      name: user.displayName,
+      email: user.email,
+      gender: additionalData.gender,
+      age: additionalData.age,
+      height: additionalData.height,
+      weight: additionalData.weight,
+      level: additionalData.level,
+      goal: additionalData.goal,
+      healthProblems: [],
+      priorityMuscleCategories: [],
+      createdAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const setProgram = async (user: FirebaseAuthTypes.User, program: any) => {
+  try {
+    await setDoc(doc(db, "Programs", user.uid), {
+      days: program.days,
+      createdAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const isProfileDocExists = async (user: FirebaseAuthTypes.User) => {
+  try {
+    const profileDoc = await getDoc(doc(db, "Profles", user.uid));
+    return profileDoc.exists();
   } catch (error) {
     console.error(error);
   }

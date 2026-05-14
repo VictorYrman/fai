@@ -12,7 +12,7 @@ export const TaskCardStyles = StyleSheet.create({
         ...GlobalStyles.rowAlignCenter,
         ...GlobalStyles.interactiveElement,
         ...GlobalStyles.contentGap,
-        width: "100%",
+        flex: 1,
         paddingVertical: Spacing.small,
         paddingHorizontal: Spacing.medium,
     },

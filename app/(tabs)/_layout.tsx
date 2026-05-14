@@ -2,7 +2,7 @@
 import Icon from "@/components/atoms/Icon";
 
 // Organisms Components
-import TabBar from "@/components/organisms/TabBar";
+import TabBar from "@/components/molecules/TabBar";
 
 // External Dependencies
 import { Tabs } from "expo-router";

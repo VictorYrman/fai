@@ -5,7 +5,7 @@ import Icon from "../atoms/Icon";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // Styles
-import { HeaderStyles } from "@/styles/components/organisms/Header.styles";
+import { HeaderStyles } from "@/styles/components/molecules/Header.styles";
 
 const Header = () => {
   return (

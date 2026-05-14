@@ -5,7 +5,7 @@ import Select from "../molecules/Select";
 import { View } from "react-native";
 
 // Styles
-import { SelectionPickerStyles } from "@/styles/components/molecules/SelectionPicker.styles";
+import { SelectionPickerStyles } from "@/styles/components/organisms/SelectionPicker.styles";
 
 // Day Type
 type Selection = {

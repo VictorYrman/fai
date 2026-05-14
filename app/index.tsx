@@ -16,6 +16,7 @@ import { areAllFieldsValid } from "@/services/ValidationService";
 
 // Store
 import { useSurveyStore } from "@/store/useSurveyStore";
+import { useReferenceStore } from "@/store/useReferenceStore";
 import { useProgramStore } from "@/store/useProgramStore";
 
 // Styles
@@ -24,13 +25,14 @@ import { WelcomeStyles } from "@/styles/screens/Welcome.styles";
 
 export default function Index() {
   const { survey } = useSurveyStore();
-  const { program, isLoaded } = useProgramStore();
+  const { isReferenceDataLoaded } = useReferenceStore();
+  const { program, isProgramLoaded } = useProgramStore();
   const router = useRouter();
   const HeaderHeight = useHeaderHeight();
 
   const PaddingTop = HeaderHeight + Spacing.long;
 
-  if (!isLoaded) return null;
+  if (!isProgramLoaded || !isReferenceDataLoaded) return null;
 
   if (program && areAllFieldsValid(survey)) {
     return <Redirect href="/(tabs)" />;

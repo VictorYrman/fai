@@ -14,6 +14,7 @@ import {
   signInWithCredential,
   signInAnonymously,
   GoogleAuthProvider,
+  FirebaseAuthTypes,
 } from "@react-native-firebase/auth";
 
 // Config
@@ -23,8 +24,17 @@ import { configureGoogleSignIn } from "@/config/google";
 // Constants
 import { Colors, Spacing } from "@/constants/theme";
 
+// Services
+import {
+  isProfileDocExists,
+  setProfile,
+  setProgram,
+} from "@/services/FirebaseService";
+
 // Store
 import { useAuthStore } from "@/store/useAuthStore";
+import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProgramStore } from "@/store/useProgramStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -41,6 +51,18 @@ export default function SignIn() {
     configureGoogleSignIn();
   }, []);
 
+  const createBaseDocsForUser = async (user: FirebaseAuthTypes.User) => {
+    const isDocExists = await isProfileDocExists(user);
+
+    if (!isDocExists) {
+      const survey = useSurveyStore.getState().survey;
+      const program = useProgramStore.getState().program;
+
+      await setProfile(user, survey);
+      await setProgram(user, program);
+    }
+  };
+
   const onClickGoogleHandler = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -50,7 +72,11 @@ export default function SignIn() {
 
       const googleCredential = GoogleAuthProvider.credential(data.idToken);
       const userCredential = await signInWithCredential(auth, googleCredential);
-      setUser(userCredential.user);
+      const user = userCredential.user;
+
+      await createBaseDocsForUser(user);
+
+      setUser(user);
 
       router.replace("/(tabs)");
     } catch (error) {
@@ -61,7 +87,11 @@ export default function SignIn() {
   const onClickGuestHandler = async () => {
     try {
       const userCredential = await signInAnonymously(auth);
-      setUser(userCredential.user);
+      const user = userCredential.user;
+
+      await createBaseDocsForUser(user);
+
+      setUser(user);
 
       router.replace("/(tabs)");
     } catch (error) {

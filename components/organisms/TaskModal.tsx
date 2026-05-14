@@ -11,6 +11,7 @@ import { useMemo } from "react";
 import { useRouter } from "expo-router";
 
 // Store
+import { useAuthStore } from "@/store/useAuthStore";
 import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Styles
@@ -24,6 +25,7 @@ type TaskModalProps = {
 };
 
 const TaskModal = ({ task, visible, onClose }: TaskModalProps) => {
+  const { user } = useAuthStore();
   const { getExercise } = useReferenceStore();
   const router = useRouter();
 
@@ -46,11 +48,13 @@ const TaskModal = ({ task, visible, onClose }: TaskModalProps) => {
         modalVisible={visible}
       />
 
-      <Button type="gradient" onPress={() => router.navigate("/signin")}>
-        <Typography type="key" style={GlobalStyles.textDark}>
-          SAVE THE TRAINING PROGRAM
-        </Typography>
-      </Button>
+      {!user && (
+        <Button type="gradient" onPress={() => router.navigate("/signin")}>
+          <Typography type="key" style={GlobalStyles.textDark}>
+            СОХРАНИТЬ ПРОГРАММУ
+          </Typography>
+        </Button>
+      )}
     </ModalLayout>
   );
 };

@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 
 // Styles
-import { ExerciseCategoryCardStyles } from "@/styles/components/molecules/ExerciseCategoryCard.styles";
+import { ExerciseCategoryCardStyles } from "@/styles/components/organisms/ExerciseCategoryCard.styles";
 
 // Props Type
 type ExerciseCategoryCardProps = {

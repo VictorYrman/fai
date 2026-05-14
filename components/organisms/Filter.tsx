@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Pressable } from "react-native";
 
 // Styles
-import { FilterStyles } from "@/styles/components/atoms/Filter.styles";
+import { FilterStyles } from "@/styles/components/organisms/Filter.styles";
 
 // Filter Value Type
 export type FilterValueType = {

@@ -13,7 +13,7 @@ import { Pressable, View } from "react-native";
 import { Colors, IconSize } from "@/constants/theme";
 
 // Styles
-import { ExerciseCardStyles } from "@/styles/components/molecules/ExerciseCard.styles";
+import { ExerciseCardStyles } from "@/styles/components/organisms/ExerciseCard.styles";
 
 // Exercise Type
 export type ExerciseType = "warmup" | "strength" | "cardio" | "stretch";
