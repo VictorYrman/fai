@@ -9,23 +9,24 @@ export default {
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
     },
     android: {
       adaptiveIcon: {
         backgroundColor: "#E6F4FE",
         foregroundImage: "./assets/images/android-icon-foreground.png",
         backgroundImage: "./assets/images/android-icon-background.png",
-        monochromeImage: "./assets/images/android-icon-monochrome.png"
+        monochromeImage: "./assets/images/android-icon-monochrome.png",
       },
-      googleServicesFile: process.env.GOOGLE_SERVICES_JSON || "./google-services.json",
+      googleServicesFile:
+        process.env.GOOGLE_SERVICES_JSON || "./google-services.json",
       edgeToEdgeEnabled: true,
       predictiveBackGestureEnabled: false,
-      package: "com.theyrman.fai"
+      package: "com.theyrman.fai",
     },
     web: {
       output: "static",
-      favicon: "./assets/images/favicon.png"
+      favicon: "./assets/images/favicon.png",
     },
     plugins: [
       [
@@ -34,7 +35,7 @@ export default {
           fonts: [
             "./assets/fonts/Inter-Regular.ttf",
             "./assets/fonts/Inter-SemiBold.ttf",
-            "./assets/fonts/Inter-Bold.ttf"
+            "./assets/fonts/Inter-Bold.ttf",
           ],
           android: {
             fonts: [
@@ -43,28 +44,28 @@ export default {
                 fontDefinitions: [
                   {
                     path: "./assets/fonts/Inter-Regular.ttf",
-                    weight: 400
+                    weight: 400,
                   },
                   {
                     path: "./assets/fonts/Inter-SemiBold.ttf",
-                    weight: 600
+                    weight: 600,
                   },
                   {
                     path: "./assets/fonts/Inter-Bold.ttf",
-                    weight: 700
-                  }
-                ]
-              }
-            ]
+                    weight: 700,
+                  },
+                ],
+              },
+            ],
           },
           ios: {
             fonts: [
               "./assets/fonts/Inter-Regular.ttf",
               "./assets/fonts/Inter-SemiBold.ttf",
-              "./assets/fonts/Inter-Bold.ttf"
-            ]
-          }
-        }
+              "./assets/fonts/Inter-Bold.ttf",
+            ],
+          },
+        },
       ],
       "expo-router",
       [
@@ -73,23 +74,30 @@ export default {
           image: "./assets/images/fai-splash-icon.png",
           imageWidth: 200,
           resizeMode: "contain",
-          backgroundColor: "#0B0E23"
-        }
+          backgroundColor: "#0B0E23",
+        },
       ],
       "expo-video",
+      [
+        "expo-image-picker",
+        {
+          photoPermission:
+            "The app needs access to your photos so that you can set your profile avatar.",
+        },
+      ],
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
     ],
     experiments: {
       typedRoutes: true,
-      reactCompiler: true
+      reactCompiler: true,
     },
     extra: {
       router: {},
       eas: {
-        projectId: "c519f1fd-5df1-410b-9ee3-214289100cf0"
-      }
-    }
-  }
+        projectId: "c519f1fd-5df1-410b-9ee3-214289100cf0",
+      },
+    },
+  },
 };

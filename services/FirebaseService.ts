@@ -6,6 +6,7 @@ import {
   getDocs,
   serverTimestamp,
   setDoc,
+  updateDoc,
 } from "@react-native-firebase/firestore";
 import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 
@@ -167,11 +168,17 @@ export const getExercises = async () => {
   }
 };
 
-export const setProfile = async (user: FirebaseAuthTypes.User, additionalData: any) => {
+// Profiles
+
+export const setProfile = async (
+  user: FirebaseAuthTypes.User,
+  additionalData: any,
+) => {
   try {
     await setDoc(doc(db, "Profiles", user.uid), {
-      name: user.displayName,
-      email: user.email,
+      name: user?.isAnonymous ? "Аноним" : user.displayName,
+      email: user?.isAnonymous ? "" : user.email,
+      avatar: user?.isAnonymous ? "" : user.photoURL,
       gender: additionalData.gender,
       age: additionalData.age,
       height: additionalData.height,
@@ -187,12 +194,33 @@ export const setProfile = async (user: FirebaseAuthTypes.User, additionalData: a
   }
 };
 
-export const setProgram = async (user: FirebaseAuthTypes.User, program: any) => {
+export const getProfile = async (userId: string) => {
   try {
-    await setDoc(doc(db, "Programs", user.uid), {
-      days: program.days,
-      createdAt: serverTimestamp(),
-    });
+    const documentSnapshot = await getDoc(doc(db, "Profiles", userId));
+
+    const profile = documentSnapshot.data();
+
+    return {
+      name: profile?.name,
+      email: profile?.email,
+      avatar: profile?.avatar,
+      gender: profile?.gender,
+      age: profile?.age,
+      height: profile?.height,
+      weight: profile?.weight,
+      level: profile?.level,
+      goal: profile?.goal,
+      healthProblems: profile?.healthProblems,
+      priorityMuscleCategories: profile?.priorityMuscleCategories,
+    };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProfile = async (userId: string, profile: any) => {
+  try {
+    await updateDoc(doc(db, "Profiles", userId), profile);
   } catch (error) {
     console.error(error);
   }
@@ -206,3 +234,38 @@ export const isProfileDocExists = async (user: FirebaseAuthTypes.User) => {
     console.error(error);
   }
 };
+
+export const setProgram = async (
+  user: FirebaseAuthTypes.User,
+  program: any,
+) => {
+  try {
+    const days = program.days.map((day: any) => ({
+      ...day,
+      warmup: day?.warmup.map((task: any) => ({ ...task, status: "pending" })),
+      base: day?.base.map((task: any) => ({ ...task, status: "pending" })),
+      cooldown: day?.base.map((task: any) => ({ ...task, status: "pending" })),
+      feedback: "",
+    }));
+
+    await setDoc(doc(db, "Programs", user.uid), {
+      days: days,
+      createdAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// export const getImageUrl = async (userId: string, localUri: string) => {
+//   try {
+//     const imageRef = ref(storage, `images/${userId}.jpg`);
+//     await imageRef.putFile(localUri);
+
+//     const url = await getDownloadURL(imageRef);
+//     return url;
+//   } catch (error) {
+//     console.error(error);
+//     return null;
+//   }
+// };

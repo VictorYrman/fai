@@ -53,7 +53,7 @@ export default function Home() {
 
       <View style={GlobalStyles.contentGap}>
         <Typography type="subtitle">СЕГОДНЯШНИЕ ЗАДАНИЯ</Typography>
-        {currentTasks ? (
+        {currentTasks.length !== 0 ? (
           <TaskSlider tasks={currentTasks} />
         ) : (
           <Typography type="paragraph">На сегодня заданий нет!</Typography>
