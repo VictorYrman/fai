@@ -242,9 +242,21 @@ export const setProgram = async (
   try {
     const days = program.days.map((day: any) => ({
       ...day,
-      warmup: day?.warmup.map((task: any) => ({ ...task, status: "pending" })),
-      base: day?.base.map((task: any) => ({ ...task, status: "pending" })),
-      cooldown: day?.base.map((task: any) => ({ ...task, status: "pending" })),
+      warmup: day?.warmup.map((task: any) => ({
+        ...task,
+        setsTime: [],
+        status: "pending",
+      })),
+      base: day?.base.map((task: any) => ({
+        ...task,
+        setsTime: [],
+        status: "pending",
+      })),
+      cooldown: day?.base.map((task: any) => ({
+        ...task,
+        setsTime: [],
+        status: "pending",
+      })),
       feedback: "",
     }));
 
@@ -252,6 +264,14 @@ export const setProgram = async (
       days: days,
       createdAt: serverTimestamp(),
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProgram = async (userId: string, program: any) => {
+  try {
+    await updateDoc(doc(db, "Profiles", userId), program);
   } catch (error) {
     console.error(error);
   }

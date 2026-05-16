@@ -3,16 +3,12 @@ import Button from "@/components/atoms/Button";
 import GradientBackground from "@/components/atoms/GradientBackground";
 import Typography from "@/components/atoms/Typography";
 
-// Molecules Components
-import Accordion from "@/components/molecules/Accordion";
-
 // Organisms Components
-import TaskCard from "@/components/organisms/TaskCard";
-import SelectionPicker from "@/components/organisms/SelectionPicker";
+import DayProgram, { Days } from "@/components/organisms/DayProgram";
 
 // External Dependencies
-import { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { useMemo, useState } from "react";
+import { ScrollView } from "react-native";
 import { useRouter } from "expo-router";
 import { useHeaderHeight } from "@react-navigation/elements";
 
@@ -25,29 +21,18 @@ import { Spacing } from "@/constants/theme";
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
-const Days = [
-  { value: "Monday", title: "ПНД" },
-  { value: "Tuesday", title: "ВТР" },
-  { value: "Wednesday", title: "СРД" },
-  { value: "Thursday", title: "ЧТВ" },
-  { value: "Friday", title: "ПТН" },
-  { value: "Saturday", title: "СБТ" },
-  { value: "Sunday", title: "ВСК" },
-];
+const currentDay =
+  Days[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1].value;
 
 export default function Demo() {
   const { program } = useProgramStore();
+  const [day, setDay] = useState<string>(currentDay);
 
-  const [day, setDay] = useState<string>(Days[0].value);
-  const [currentProgram, setCurrentProgram] = useState(
-    program ? program.days[0] : undefined,
-  );
-
-  useEffect(() => {
-    const newCurrentProgram = program?.days.filter(
+  const currentProgram = useMemo(() => {
+    if (!program) return undefined;
+    return program.days.find(
       (programDay) => programDay.day.toLowerCase() === day.toLowerCase(),
     );
-    setCurrentProgram(newCurrentProgram ? newCurrentProgram[0] : undefined);
   }, [program, day]);
 
   const router = useRouter();
@@ -64,43 +49,11 @@ export default function Demo() {
           ВАША ПРОГРАММА НА НЕДЕЛЮ
         </Typography>
 
-        <SelectionPicker
-          value={day}
-          selections={Days}
-          onSelect={(day) => setDay(day)}
+        <DayProgram
+          day={day}
+          onSelect={(value) => setDay(value)}
+          currentProgram={currentProgram}
         />
-
-        {currentProgram === undefined ? (
-          <Typography type="paragraph" style={GlobalStyles.textCenter}>
-            На этот день не запланировано никаких тренировок.
-          </Typography>
-        ) : (
-          <View style={GlobalStyles.contentGap}>
-            <Accordion title="Разминка">
-              {currentProgram &&
-                currentProgram.warmup &&
-                currentProgram?.warmup.map((task) => (
-                  <TaskCard key={task.exerciseId} task={task} />
-                ))}
-            </Accordion>
-
-            <Accordion title="Основа">
-              {currentProgram &&
-                currentProgram.base &&
-                currentProgram?.base.map((task) => (
-                  <TaskCard key={task.exerciseId} task={task} />
-                ))}
-            </Accordion>
-
-            <Accordion title="Заминка">
-              {currentProgram &&
-                currentProgram.cooldown &&
-                currentProgram?.cooldown.map((task) => (
-                  <TaskCard key={task.exerciseId} task={task} />
-                ))}
-            </Accordion>
-          </View>
-        )}
       </ScrollView>
 
       <Button type="gradient" onPress={() => router.navigate("/signin")}>

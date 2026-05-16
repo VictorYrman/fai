@@ -225,7 +225,7 @@ export default function Survey() {
       ) : (
         <Button type="gradient" onPress={onClickCreateTrainingProgram}>
           <Typography type="key" style={GlobalStyles.textDark}>
-            CREATE A TRAINING PROGRAM!
+            СОЗДАТЬ ПРОГРАММУ
           </Typography>
         </Button>
       )}

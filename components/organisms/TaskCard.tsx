@@ -14,6 +14,7 @@ import { Colors, IconSize } from "@/constants/theme";
 
 // Store
 import { useReferenceStore } from "@/store/useReferenceStore";
+import { SectionType } from "@/store/useProgramStore";
 
 // Styles
 import { TaskCardStyles } from "@/styles/components/organisms/TaskCard.styles";
@@ -24,9 +25,11 @@ export type TaskType = "warmup" | "strength" | "cardio" | "stretch";
 // Proprs Type
 type TaskCardProps = PressableProps & {
   task: any;
+  day: string;
+  section: SectionType;
 };
 
-const TaskCard = ({ task }: TaskCardProps) => {
+const TaskCard = ({ task, day, section }: TaskCardProps) => {
   const { getExercise } = useReferenceStore();
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -70,6 +73,8 @@ const TaskCard = ({ task }: TaskCardProps) => {
         <TaskModal
           task={task}
           visible={isModalVisible}
+          day={day}
+          section={section}
           onClose={() => setIsModalVisible(false)}
         />
       )}
