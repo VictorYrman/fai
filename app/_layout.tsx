@@ -12,12 +12,10 @@ import { auth } from "@/config/firebase";
 // Store
 import { useAuthStore } from "@/store/useAuthStore";
 import { useReferenceStore } from "@/store/useReferenceStore";
-import { useProfileStore } from "@/store/useProfileStore";
 
 export default function RootLayout() {
-  const { user, setUser } = useAuthStore();
+  const { setUser } = useAuthStore();
   const { getExercises } = useReferenceStore();
-  const { getProfile } = useProfileStore();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -25,10 +23,6 @@ export default function RootLayout() {
     });
 
     getExercises();
-
-    if (user) {
-      getProfile();
-    }
   }, []);
 
   return (

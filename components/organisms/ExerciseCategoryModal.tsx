@@ -3,12 +3,12 @@ import Input from "../molecules/Input";
 import ModalLayout from "../molecules/ModalLayout";
 
 // Organisms Components
-import Filter, { FilterValueType } from "./Filter";
+import Filter, { SelectValueType } from "./Filter";
 import ExerciseCard from "./ExerciseCard";
 
 // External Dependencies
 import { useMemo, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { FlatList, View } from "react-native";
 
 // Store
 import { useReferenceStore } from "@/store/useReferenceStore";
@@ -23,10 +23,9 @@ type ExerciseCategoryModalProps = {
   onClose: () => void;
 };
 
-const DefaultFilterValueMuscles: FilterValueType = {
+const DefaultFilterValueMuscles: SelectValueType = {
   value: "",
   title: "Все мышцы",
-  image: { man: "", woman: "" },
 };
 
 const ExerciseCategoryModal = ({
@@ -36,7 +35,7 @@ const ExerciseCategoryModal = ({
 }: ExerciseCategoryModalProps) => {
   const { muscleCategories, exercises } = useReferenceStore();
   const [search, setSearch] = useState<string>("");
-  const [muscleCategory, setMuscleCategory] = useState<FilterValueType>(
+  const [muscleCategory, setMuscleCategory] = useState<SelectValueType>(
     DefaultFilterValueMuscles,
   );
 
@@ -85,18 +84,18 @@ const ExerciseCategoryModal = ({
 
           <Filter
             value={muscleCategory}
-            muscleCategoryValues={MuscleCategories}
+            selectValues={MuscleCategories}
             onSelect={(value) => setMuscleCategory(value)}
           />
         </View>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={GlobalStyles.contentGap}>
-            {filteredExercises.map((exercise) => (
-              <ExerciseCard key={exercise?.id} exercise={exercise} />
-            ))}
-          </View>
-        </ScrollView>
+        <FlatList
+          data={filteredExercises}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <ExerciseCard exercise={item} />}
+          contentContainerStyle={GlobalStyles.contentGap}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
     </ModalLayout>
   );

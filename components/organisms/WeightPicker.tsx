@@ -16,7 +16,7 @@ import { Colors } from "@/constants/theme";
 import { calculateBMI } from "@/services/HealthService";
 
 // Store
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProfileStore } from "@/store/useProfileStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -36,8 +36,12 @@ const WeightUnits = [
 const LB_TO_KG = 0.45359243;
 
 const WeightPicker = ({ value, onSelect }: WeightPickerProps) => {
-  const { survey } = useSurveyStore();
-  const [weightUnit, setWeightUnit] = useState<string>(WeightUnits[0].value);
+  const { profile } = useProfileStore();
+  const [weightUnit, setWeightUnit] = useState<string>(
+    profile?.settings.unitsOfMeasurement === "imperial"
+      ? WeightUnits[1].value
+      : WeightUnits[0].value,
+  );
 
   const onSelectHandler = (weight: number) => {
     let weightInKg = weight;
@@ -52,8 +56,8 @@ const WeightPicker = ({ value, onSelect }: WeightPickerProps) => {
   };
 
   const BMI = useMemo(() => {
-    return calculateBMI(survey.weight, survey.height);
-  }, [survey]);
+    return calculateBMI(profile.weight, profile.height);
+  }, [profile]);
 
   const displayValue = useMemo(() => {
     return weightUnit === "kg" ? value : value / LB_TO_KG;

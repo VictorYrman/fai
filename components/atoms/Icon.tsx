@@ -21,6 +21,16 @@ import TasksIcon from "@/assets/icons/tasks.svg";
 import AnalyticsIcon from "@/assets/icons/analytics.svg";
 import ProfileIcon from "@/assets/icons/profile.svg";
 
+import SurveyIcon from "@/assets/icons/survey.svg";
+import HealthIcon from "@/assets/icons/health.svg";
+import MuscleIcon from "@/assets/icons/muscle.svg";
+import RulerIcon from "@/assets/icons/ruler.svg";
+import LanguageIcon from "@/assets/icons/language.svg";
+import BotIcon from "@/assets/icons/bot.svg";
+import HealthConnectIcon from "@/assets/icons/health-connect.svg";
+import ResetIcon from "@/assets/icons/reset.svg";
+import SignOutIcon from "@/assets/icons/sign-out.svg";
+
 // Constants
 import { Colors, IconSize } from "@/constants/theme";
 
@@ -43,6 +53,16 @@ const IconMap = {
   tasks: TasksIcon,
   analytics: AnalyticsIcon,
   profile: ProfileIcon,
+
+  survey: SurveyIcon,
+  health: HealthIcon,
+  muscle: MuscleIcon,
+  ruler: RulerIcon,
+  language: LanguageIcon,
+  bot: BotIcon,
+  "health-connect": HealthConnectIcon,
+  reset: ResetIcon,
+  "sign-out": SignOutIcon,
 };
 
 // Icon Type

@@ -9,6 +9,9 @@ import { RulerPicker } from "react-native-ruler-picker";
 // Constants
 import { Colors } from "@/constants/theme";
 
+// Store
+import { useProfileStore } from "@/store/useProfileStore";
+
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { HeightPickerStyles } from "@/styles/components/organisms/HeightPicker.styles";
@@ -27,7 +30,12 @@ const HeightUnits = [
 const FT_TO_CM = 30.48;
 
 const HeightPicker = ({ value, onSelect }: HeightPickerProps) => {
-  const [heightUnit, setHeightUnit] = useState<string>(HeightUnits[0].value);
+  const { profile } = useProfileStore();
+  const [heightUnit, setHeightUnit] = useState<string>(
+    profile?.settings.unitsOfMeasurement === "imperial"
+      ? HeightUnits[1].value
+      : HeightUnits[0].value,
+  );
 
   const onSelectHandler = (height: number) => {
     let heightInCm: number = height;

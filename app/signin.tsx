@@ -33,12 +33,12 @@ import {
 
 // Store
 import { useAuthStore } from "@/store/useAuthStore";
-import { useSurveyStore } from "@/store/useSurveyStore";
 import { useProgramStore } from "@/store/useProgramStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { SignInStyles } from "@/styles/screens/SignIn.styles";
+import { useProfileStore } from "@/store/useProfileStore";
 
 export default function SignIn() {
   const { setUser } = useAuthStore();
@@ -55,7 +55,7 @@ export default function SignIn() {
     const isDocExists = await isProfileDocExists(user);
 
     if (!isDocExists) {
-      const survey = useSurveyStore.getState().survey;
+      const survey = useProfileStore.getState().profile;
       const program = useProgramStore.getState().program;
 
       await setProfile(user, survey);

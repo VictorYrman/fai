@@ -51,9 +51,26 @@ export default function Tasks() {
     );
   }, [currentProgram]);
 
-  // const failedTasks = useMemo(() => {
+  const failedTasks = useMemo(() => {
+    if (!currentProgram) return [];
 
-  // }, [currentProgram]);
+    const warmup = (currentProgram.warmup || []).map((task: any) => ({
+      ...task,
+      section: "warmup",
+    }));
+    const base = (currentProgram.base || []).map((task: any) => ({
+      ...task,
+      section: "base",
+    }));
+    const cooldown = (currentProgram.cooldown || []).map((task: any) => ({
+      ...task,
+      section: "cooldown",
+    }));
+
+    return [...warmup, ...base, ...cooldown].filter(
+      (task) => task.status === "failed",
+    );
+  }, [currentProgram]);
 
   const activeProgram = useMemo(() => {
     if (!currentProgram) return undefined;
@@ -84,11 +101,24 @@ export default function Tasks() {
         currentProgram={activeProgram}
       />
 
-      {completedTasks && (
-        <Accordion title={"Выполненные задания"}>
+      {completedTasks.length !== 0 && (
+        <Accordion title="Выполненные задания">
           {completedTasks.map((task: any) => (
             <TaskCard
-              key={task?.exerciseId}
+              key={`${task?.section}-${task?.exerciseId}`}
+              task={task}
+              day={day}
+              section={task.section}
+            />
+          ))}
+        </Accordion>
+      )}
+
+      {failedTasks.length !== 0 && (
+        <Accordion title="Проваленные задания">
+          {failedTasks.map((task: any) => (
+            <TaskCard
+              key={`${task?.section}-${task?.exerciseId}`}
               task={task}
               day={day}
               section={task.section}

@@ -10,7 +10,7 @@ import { Image } from "expo-image";
 import { Pressable, PressableProps, View } from "react-native";
 
 // Store
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProfileStore } from "@/store/useProfileStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -36,7 +36,7 @@ const CardOption = ({
   isSelected,
   onSelect,
 }: CardOptionProps) => {
-  const { survey } = useSurveyStore();
+  const { profile } = useProfileStore();
 
   const onSelectHandler = () => {
     onSelect(value);
@@ -51,7 +51,7 @@ const CardOption = ({
       ]}
     >
       <Image
-        source={survey.gender === "Female" ? image.female : image.male}
+        source={profile.gender === "Female" ? image.female : image.male}
         style={CardOptionStyles.cardOptionImage}
       />
 

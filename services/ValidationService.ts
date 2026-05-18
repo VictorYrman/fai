@@ -1,4 +1,5 @@
-import { SurveyObject } from "@/store/useSurveyStore";
+// Store
+import { ProfileType } from "@/store/useProfileStore";
 
 export const isGenderValid = (gender: string) => {
     if (!gender) {
@@ -48,8 +49,8 @@ export const isLevelValid = (level: string) => {
     return true;
 };
 
-export const areAllFieldsValid = (survey: SurveyObject) => {
-    if (isGenderValid(survey.gender) && isAgeValid(survey.age) && isHeightValid(survey.height) && isWeightValid(survey.weight) && isGoalValid(survey.goal) && isLevelValid(survey.level)) {
+export const areAllSurveyFieldsValid = (profile: ProfileType) => {
+    if (isGenderValid(profile.gender) && isAgeValid(profile.age) && isHeightValid(profile.height) && isWeightValid(profile.weight) && isGoalValid(profile.goal) && isLevelValid(profile.level)) {
         return true;
     }
 

@@ -8,7 +8,7 @@ import { ScrollView, View } from "react-native";
 import { useVideoPlayer, VideoView } from "expo-video";
 
 // Store
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProfileStore } from "@/store/useProfileStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
@@ -34,9 +34,9 @@ const ExerciseContent = ({
   muscleCategories,
   modalVisible,
 }: ExerciseContentProps) => {
-  const { survey } = useSurveyStore();
+  const { profile } = useProfileStore();
   const player = useVideoPlayer(
-    (survey.gender === "Female" ? video?.woman : video?.man) || tempVideo,
+    (profile.gender === "Female" ? video?.woman : video?.man) || tempVideo,
     (player) => {
       player.loop = true;
       player.muted = true;
@@ -92,7 +92,7 @@ const ExerciseContent = ({
                     <Image
                       key={muscleCategory.muscleCategory?.id}
                       source={
-                        survey.gender === "Female"
+                        profile.gender === "Female"
                           ? muscleCategory.muscleCategory?.image?.woman
                           : muscleCategory.muscleCategory?.image?.man
                       }

@@ -5,14 +5,12 @@ import Typography from "@/components/atoms/Typography";
 // Organisms Components
 import ScreenLayout from "@/components/organisms/ScreenLayout";
 import ProfileSummary from "@/components/organisms/ProfileSummary";
+import Settings from "@/components/organisms/Settings";
 
 // External Dependencies
 import { View } from "react-native";
 import { useEffect } from "react";
 import { useRouter } from "expo-router";
-
-// Config
-import { configureGoogleSignIn } from "@/config/google";
 
 // Store
 import { useAuthStore } from "@/store/useAuthStore";
@@ -22,38 +20,13 @@ import { useProfileStore } from "@/store/useProfileStore";
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
 
 export default function Profile() {
-  const { user, isAnonymous } = useAuthStore();
+  const { user } = useAuthStore();
   const { getProfile } = useProfileStore();
   const router = useRouter();
 
   useEffect(() => {
-    configureGoogleSignIn();
     getProfile();
   }, []);
-
-  // const onClickGoogleBindingHandler = async () => {
-  //   try {
-  //     const currentUser = auth.currentUser;
-
-  //     if (!currentUser) return;
-
-  //     await GoogleSignin.hasPlayServices();
-  //     const { data } = await GoogleSignin.signIn();
-
-  //     if (!data?.idToken) return;
-
-  //     const googleCredential = GoogleAuthProvider.credential(data?.idToken);
-  //     const userCredential = await linkWithCredential(
-  //       currentUser,
-  //       googleCredential,
-  //     );
-  //     const user = userCredential.user;
-
-  //     setUser(user);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <ScreenLayout>
@@ -75,6 +48,8 @@ export default function Profile() {
 
       <View style={GlobalStyles.contentGap}>
         <Typography type="subtitle">НАСТРОЙКИ</Typography>
+
+        <Settings />
       </View>
     </ScreenLayout>
   );

@@ -53,7 +53,7 @@ const DayProgram = ({ day, onSelect, currentProgram }: DayProgramProps) => {
         sections.map((section) => (
           <Accordion key={section.title} title={section.title}>
             {section.data?.map((task: any) => (
-              <TaskCard key={task.exerciseId} task={task} day={currentProgram.day} section={section.value} />
+              <TaskCard key={`${task?.section}-${task?.exerciseId}`} task={task} day={currentProgram.day} section={section.value} />
             ))}
           </Accordion>
         ))

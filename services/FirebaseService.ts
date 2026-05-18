@@ -1,6 +1,7 @@
 // External Dependencies
 import {
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
@@ -106,6 +107,7 @@ export const getImpactPoints = async () => {
       return {
         id: document.id,
         name: data.name,
+        value: data.value,
       };
     });
 
@@ -185,8 +187,12 @@ export const setProfile = async (
       weight: additionalData.weight,
       level: additionalData.level,
       goal: additionalData.goal,
-      healthProblems: [],
-      priorityMuscleCategories: [],
+      healthProblems: additionalData.healthProblems,
+      priorityMuscleCategories: additionalData.priorityMuscleCategories,
+      settings: {
+        unitsOfMeasurement: additionalData.settings.unitsOfMeasurement,
+        isBotEnabled: additionalData.settings.isBotEnabled
+      },
       createdAt: serverTimestamp(),
     });
   } catch (error) {
@@ -212,6 +218,10 @@ export const getProfile = async (userId: string) => {
       goal: profile?.goal,
       healthProblems: profile?.healthProblems,
       priorityMuscleCategories: profile?.priorityMuscleCategories,
+      settings: {
+        unitsOfMeasurement: profile?.settings.unitsOfMeasurement,
+        isBotEnabled: profile?.settings.isBotEnabled
+      }
     };
   } catch (error) {
     console.error(error);
@@ -228,7 +238,7 @@ export const updateProfile = async (userId: string, profile: any) => {
 
 export const isProfileDocExists = async (user: FirebaseAuthTypes.User) => {
   try {
-    const profileDoc = await getDoc(doc(db, "Profles", user.uid));
+    const profileDoc = await getDoc(doc(db, "Profiles", user.uid));
     return profileDoc.exists();
   } catch (error) {
     console.error(error);
@@ -252,7 +262,7 @@ export const setProgram = async (
         setsTime: [],
         status: "pending",
       })),
-      cooldown: day?.base.map((task: any) => ({
+      cooldown: day?.cooldown.map((task: any) => ({
         ...task,
         setsTime: [],
         status: "pending",
@@ -269,9 +279,31 @@ export const setProgram = async (
   }
 };
 
+export const getProgram = async (userId: string) => {
+  try {
+    const documentSnapshot = await getDoc(doc(db, "Programs", userId));
+
+    const program = documentSnapshot.data();
+
+    return {
+      days: program?.days,
+    };
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const updateProgram = async (userId: string, program: any) => {
   try {
     await updateDoc(doc(db, "Profiles", userId), program);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteProgram = async (userId: string) => {
+  try {
+    await deleteDoc(doc(db, "Program", userId));
   } catch (error) {
     console.error(error);
   }

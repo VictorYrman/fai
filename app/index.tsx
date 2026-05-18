@@ -12,10 +12,10 @@ import { Redirect, useRouter } from "expo-router";
 import { Spacing } from "@/constants/theme";
 
 // Services
-import { areAllFieldsValid } from "@/services/ValidationService";
+import { areAllSurveyFieldsValid } from "@/services/ValidationService";
 
 // Store
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProfileStore } from "@/store/useProfileStore";
 import { useReferenceStore } from "@/store/useReferenceStore";
 import { useProgramStore } from "@/store/useProgramStore";
 
@@ -24,7 +24,7 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { WelcomeStyles } from "@/styles/screens/Welcome.styles";
 
 export default function Index() {
-  const { survey } = useSurveyStore();
+  const { profile } = useProfileStore();
   const { isReferenceDataLoaded } = useReferenceStore();
   const { program, isProgramLoaded } = useProgramStore();
   const router = useRouter();
@@ -32,9 +32,19 @@ export default function Index() {
 
   const PaddingTop = HeaderHeight + Spacing.long;
 
-  if (!isProgramLoaded || !isReferenceDataLoaded) return null;
+  if (!isProgramLoaded && !isReferenceDataLoaded) {
+    return (
+      <GradientBackground
+        style={[GlobalStyles.screen, { paddingTop: PaddingTop }]}
+      >
+        <Typography type="title" style={GlobalStyles.textCenter}>
+          ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ...
+        </Typography>
+      </GradientBackground>
+    );
+  }
 
-  if (program && areAllFieldsValid(survey)) {
+  if (program && areAllSurveyFieldsValid(profile)) {
     return <Redirect href="/(tabs)" />;
   }
 

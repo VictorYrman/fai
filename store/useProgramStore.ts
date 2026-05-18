@@ -2,7 +2,15 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { updateProgram } from "@/services/FirebaseService";
+
+// Services
+import {
+  deleteProgram,
+  getProgram,
+  updateProgram,
+} from "@/services/FirebaseService";
+
+// Store
 import { useAuthStore } from "./useAuthStore";
 
 export type StatusType = "pending" | "progress" | "completed" | "failed";
@@ -33,8 +41,10 @@ type ProgramType = {
 type ProgramState = {
   program: ProgramType | null;
   isProgramLoaded: boolean;
-  setProgram: (program: ProgramType) => void;
+  setProgram: (program: ProgramType | null) => void;
   setIsProgramLoaded: (isProgramLoaded: boolean) => void;
+
+  getProgram: () => Promise<void>;
 
   updateTaskStatus: (
     day: string,
@@ -49,6 +59,8 @@ type ProgramState = {
     index: number,
     time: number,
   ) => Promise<void>;
+
+  resetProgram: () => Promise<void>;
 };
 
 export const useProgramStore = create<ProgramState>()(
@@ -56,11 +68,23 @@ export const useProgramStore = create<ProgramState>()(
     (set, get): ProgramState => ({
       program: null,
       isProgramLoaded: false,
-      setProgram: (program: ProgramType) => {
+      setProgram: (program: ProgramType | null) => {
         set({ program: program });
       },
       setIsProgramLoaded: (isProgramLoaded) =>
         set({ isProgramLoaded: isProgramLoaded }),
+      getProgram: async () => {
+        try {
+          const user = useAuthStore.getState().user;
+          
+          if (!user) return;
+          
+          const program = await getProgram(user.uid);
+          set({ program: program });
+        } catch (error) {
+          console.error(error);
+        }
+      },
       updateTaskStatus: async (
         day: string,
         section: SectionType,
@@ -97,7 +121,7 @@ export const useProgramStore = create<ProgramState>()(
           if (!user) return;
 
           await updateProgram(user.uid, updatedProgram);
-          set({ program: updatedProgram });
+          set({ program: updatedProgram, isProgramLoaded: true });
         } catch (error) {
           console.error(error);
         }
@@ -147,13 +171,22 @@ export const useProgramStore = create<ProgramState>()(
           console.error(error);
         }
       },
+
+      resetProgram: async () => {
+        try {
+          const user = useAuthStore.getState().user;
+
+          if (!user) return;
+
+          await deleteProgram(user.uid);
+        } catch (error) {
+          console.error(error);
+        }
+      },
     }),
     {
       name: "program",
       storage: createJSONStorage(() => AsyncStorage),
-      onRehydrateStorage: (state) => {
-        return () => state.setIsProgramLoaded(true);
-      },
     },
   ),
 );

@@ -7,9 +7,9 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { getProfile, updateProfile } from "@/services/FirebaseService";
 
 // Store
-import * as useAuthStore from "./useAuthStore";
+import { useAuthStore } from "./useAuthStore";
 
-type Profile = {
+export type ProfileType = {
   name: string;
   email: string;
   avatar: string;
@@ -21,50 +21,83 @@ type Profile = {
   goal: string;
   healthProblems: any[];
   priorityMuscleCategories: any[];
+  settings: { unitsOfMeasurement: string; isBotEnabled: boolean };
 };
 
-type ProfileField = keyof Profile;
+type ProfileField = keyof ProfileType;
 
 type ProfileState = {
-  profile: Profile | null;
+  profile: ProfileType;
+  isProfileLoaded: boolean;
   setField: (field: ProfileField, value: any) => void;
   getProfile: () => Promise<void>;
-  updateProfile: (profile: Profile) => Promise<void>;
+  updateProfile: (profile: ProfileType) => Promise<void>;
+  resetProfile: () => Promise<void>;
+};
+
+const DefaultProfile: ProfileType = {
+  name: "",
+  email: "",
+  avatar: "",
+  gender: "",
+  age: 20,
+  height: 150,
+  weight: 60,
+  goal: "",
+  level: "",
+  healthProblems: [],
+  priorityMuscleCategories: [],
+  settings: {
+    unitsOfMeasurement: "metric",
+    isBotEnabled: false,
+  },
 };
 
 export const useProfileStore = create<ProfileState>()(
   persist(
     (set) => ({
-      profile: null,
+      profile: DefaultProfile,
+      isProfileLoaded: false,
+
       setField: (field: ProfileField, value: any) => {
-        set((state: any) => ({
+        set((state) => ({
           profile: { ...state.profile, [field]: value },
         }));
       },
       getProfile: async () => {
         try {
-          const user = useAuthStore.useAuthStore.getState().user;
+          const user = useAuthStore.getState().user;
 
           if (!user) return;
 
-          const profile = await getProfile(user?.uid);
+          const profile = await getProfile(user.uid);
+          if (profile) {
+            set({ profile: profile, isProfileLoaded: true });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      updateProfile: async (profile: ProfileType) => {
+        try {
+          const user = useAuthStore.getState().user;
+
+          if (!user) return;
+
+          await updateProfile(user.uid, profile);
+
           set({ profile: profile });
         } catch (error) {
           console.error(error);
         }
       },
-      updateProfile: async (profile: Profile) => {
-        try {
-          const user = useAuthStore.useAuthStore.getState().user;
+      resetProfile: async () => {
+        const user = useAuthStore.getState().user;
 
-          if (!user) return;
+        if (!user) return;
 
-          await updateProfile(user?.uid, profile);
-
-          set({ profile: profile });
-        } catch (error) {
-          console.error(error);
-        }
+        await updateProfile(user.uid, DefaultProfile);
+        set({ profile: DefaultProfile });
       },
     }),
     {

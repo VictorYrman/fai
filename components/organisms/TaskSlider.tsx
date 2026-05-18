@@ -12,9 +12,10 @@ import { TaskSliderStyles } from "@/styles/components/organisms/TaskSlider.style
 // Props Type
 type TaskSliderProps = {
   tasks: any[];
+  day: string;
 };
 
-const TaskSlider = ({ tasks }: TaskSliderProps) => {
+const TaskSlider = ({ tasks, day }: TaskSliderProps) => {
   const pagerRef = useRef<PagerView>(null);
 
   return (
@@ -24,8 +25,8 @@ const TaskSlider = ({ tasks }: TaskSliderProps) => {
       initialPage={0}
     >
       {tasks.map((task: any) => (
-        <View key={task?.exerciseId} style={{ flex: 1 }}>
-          <TaskCard task={task} />
+        <View key={task?.exerciseId + task.section} style={{ flex: 1 }}>
+          <TaskCard task={task} day={day} section={task.section} />
         </View>
       ))}
     </PagerView>

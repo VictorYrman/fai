@@ -2,7 +2,7 @@
 import CardsPicker, { Card } from "./CardsPicker";
 
 // Store
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useProfileStore } from "@/store/useProfileStore";
 
 // Services
 import { calculateBMI } from "@/services/HealthService";
@@ -14,9 +14,9 @@ type GoalPickerProps = {
 };
 
 const GoalPicker = ({ value, onSelect }: GoalPickerProps) => {
-  const { survey } = useSurveyStore();
+  const { profile } = useProfileStore();
 
-  const BMI = calculateBMI(survey.weight, survey.height);
+  const BMI = calculateBMI(profile.weight, profile.height);
 
   const Goals: Card[] = [
     {

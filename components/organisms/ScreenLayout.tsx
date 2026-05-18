@@ -7,8 +7,12 @@ import Header from "../molecules/Header";
 // External Dependencies
 import { ScrollView, View } from "react-native";
 
+// Store
+import { useProfileStore } from "@/store/useProfileStore";
+
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
+import FAIAssistant from "./FAIAssistant";
 
 // Props Type
 type ScreenLayoutProps = {
@@ -16,6 +20,8 @@ type ScreenLayoutProps = {
 };
 
 const ScreenLayout = ({ children }: ScreenLayoutProps) => {
+  const { profile } = useProfileStore();
+
   return (
     <GradientBackground style={GlobalStyles.screen}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -24,6 +30,8 @@ const ScreenLayout = ({ children }: ScreenLayoutProps) => {
           {children}
         </View>
       </ScrollView>
+
+      {profile.settings.isBotEnabled && <FAIAssistant />}
     </GradientBackground>
   );
 };

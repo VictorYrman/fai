@@ -5,10 +5,11 @@ import Typography from "@/components/atoms/Typography";
 import ScreenLayout from "@/components/organisms/ScreenLayout";
 import TaskSlider from "@/components/organisms/TaskSlider";
 import ExerciseCategoryCard from "@/components/organisms/ExerciseCategoryCard";
+import { Days } from "@/components/organisms/DayProgram";
 
 // External Dependencies
 import { View } from "react-native";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 // Store
 import { useProgramStore } from "@/store/useProgramStore";
@@ -16,33 +17,47 @@ import { useReferenceStore } from "@/store/useReferenceStore";
 
 // Styles
 import { GlobalStyles } from "@/styles/global/GlobalStyles";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useProfileStore } from "@/store/useProfileStore";
 
-const DayNames = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
+const currentDay =
+  Days[new Date().getDay() === 0 ? 6 : new Date().getDay() - 1].value;
 
 export default function Home() {
-  const { program } = useProgramStore();
+  const { user } = useAuthStore();
+  const { program, getProgram } = useProgramStore();
+  const { getProfile } = useProfileStore();
   const { exerciseCategories } = useReferenceStore();
 
-  const currentTasks = useMemo(() => {
-    const currentDay = DayNames[new Date().getDay() - 1];
+  useEffect(() => {
+    if (user) {
+      getProfile();
+      getProgram();
+    }
+  }, [user]);
 
+  const currentTasks = useMemo(() => {
     const currentTrainingDay = program?.days.filter(
       (day) => day.day === currentDay,
     )[0];
+    if (!currentTrainingDay) return [];
 
-    return [
-      ...(currentTrainingDay?.warmup || []),
-      ...(currentTrainingDay?.base || []),
-      ...(currentTrainingDay?.cooldown || []),
-    ];
+    const warmup = (currentTrainingDay?.warmup || []).map((task: any) => ({
+      ...task,
+      section: "warmup",
+    }));
+    const base = (currentTrainingDay?.base || []).map((task: any) => ({
+      ...task,
+      section: "base",
+    }));
+    const cooldown = (currentTrainingDay?.cooldown || []).map((task: any) => ({
+      ...task,
+      section: "cooldown",
+    }));
+
+    return [...warmup, ...base, ...cooldown].filter(
+      (task: any) => task.status !== "completed",
+    );
   }, [program]);
 
   return (
@@ -54,7 +69,7 @@ export default function Home() {
       <View style={GlobalStyles.contentGap}>
         <Typography type="subtitle">СЕГОДНЯШНИЕ ЗАДАНИЯ</Typography>
         {currentTasks.length !== 0 ? (
-          <TaskSlider tasks={currentTasks} />
+          <TaskSlider tasks={currentTasks} day={currentDay} />
         ) : (
           <Typography type="paragraph">На сегодня заданий нет!</Typography>
         )}

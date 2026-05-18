@@ -26,7 +26,7 @@ import { Spacing } from "@/constants/theme";
 
 // Services
 import {
-  areAllFieldsValid,
+  areAllSurveyFieldsValid,
   isAgeValid,
   isGenderValid,
   isGoalValid,
@@ -37,7 +37,8 @@ import {
 import { generateAIProgram } from "@/services/AIService";
 
 // Storage
-import { useSurveyStore } from "@/store/useSurveyStore";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useProfileStore } from "@/store/useProfileStore";
 import { useProgramStore } from "@/store/useProgramStore";
 import { useReferenceStore } from "@/store/useReferenceStore";
 
@@ -46,9 +47,10 @@ import { GlobalStyles } from "@/styles/global/GlobalStyles";
 import { SurveyStyles } from "@/styles/screens/Survey.styles";
 
 export default function Survey() {
-  const { setProgram } = useProgramStore();
+  const { user } = useAuthStore();
+  const { profile, setField, updateProfile } = useProfileStore();
+  const { program, setProgram } = useProgramStore();
   const { exercises } = useReferenceStore();
-  const { survey, setField } = useSurveyStore();
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -85,31 +87,31 @@ export default function Survey() {
   const onClickCreateTrainingProgram = async () => {
     let errorMessage = "Пустые поля:";
 
-    if (!isGenderValid(survey.gender)) {
+    if (!isGenderValid(profile.gender)) {
       errorMessage += " gender;";
     }
 
-    if (!isAgeValid(survey.age)) {
+    if (!isAgeValid(profile.age)) {
       errorMessage += " age;";
     }
 
-    if (!isHeightValid(survey.height)) {
+    if (!isHeightValid(profile.height)) {
       errorMessage += " height;";
     }
 
-    if (!isWeightValid(survey.weight)) {
+    if (!isWeightValid(profile.weight)) {
       errorMessage += " weight;";
     }
 
-    if (!isGoalValid(survey.goal)) {
+    if (!isGoalValid(profile.goal)) {
       errorMessage += " goal;";
     }
 
-    if (!isLevelValid(survey.level)) {
+    if (!isLevelValid(profile.level)) {
       errorMessage += " level;";
     }
 
-    if (areAllFieldsValid(survey)) {
+    if (areAllSurveyFieldsValid(profile)) {
       errorMessage = "";
     }
 
@@ -120,7 +122,7 @@ export default function Survey() {
       try {
         setLoading(true);
 
-        const response = await generateAIProgram(exercises, survey);
+        const response = await generateAIProgram(exercises, profile);
         const program = JSON.parse(response);
 
         setProgram(program);
@@ -132,6 +134,11 @@ export default function Survey() {
         setLoading(false);
       }
     }
+  };
+
+  const onClickSaveData = async () => {
+    await updateProfile(profile);
+    router.replace("/(tabs)/profile");
   };
 
   return (
@@ -154,7 +161,7 @@ export default function Survey() {
           </Typography>
 
           <GenderPicker
-            value={survey.gender}
+            value={profile.gender}
             onSelect={(gender: string) => setField("gender", gender)}
           />
         </View>
@@ -165,7 +172,7 @@ export default function Survey() {
           </Typography>
 
           <AgePicker
-            value={survey.age}
+            value={profile.age}
             onSelect={(age: number) => setField("age", age)}
           />
         </View>
@@ -176,7 +183,7 @@ export default function Survey() {
           </Typography>
 
           <HeightPicker
-            value={survey.height}
+            value={profile.height}
             onSelect={(height: number) => setField("height", height)}
           />
         </View>
@@ -187,7 +194,7 @@ export default function Survey() {
           </Typography>
 
           <WeightPicker
-            value={survey.weight}
+            value={profile.weight}
             onSelect={(weight: number) => setField("weight", weight)}
           />
         </View>
@@ -198,7 +205,7 @@ export default function Survey() {
           </Typography>
 
           <GoalPicker
-            value={survey.goal}
+            value={profile.goal}
             onSelect={(goal: string) => setField("goal", goal)}
           />
         </View>
@@ -209,7 +216,7 @@ export default function Survey() {
           </Typography>
 
           <LevelPicker
-            value={survey.level}
+            value={profile.level}
             onSelect={(level: string) => setField("level", level)}
           />
         </View>
@@ -222,10 +229,16 @@ export default function Survey() {
           onPrevious={onPrevious}
           onNext={onNext}
         />
-      ) : (
+      ) : !user && !program ? (
         <Button type="gradient" onPress={onClickCreateTrainingProgram}>
           <Typography type="key" style={GlobalStyles.textDark}>
             СОЗДАТЬ ПРОГРАММУ
+          </Typography>
+        </Button>
+      ) : (
+        <Button type="gradient" onPress={onClickSaveData}>
+          <Typography type="key" style={GlobalStyles.textDark}>
+            СОХРАНИТЬ ДАННЫЕ
           </Typography>
         </Button>
       )}
